@@ -4,7 +4,7 @@
  */
 package com.sfwlibre.formulary.service;
 
-import com.sfwlibre.formulary.dto.UsuarioDTO;
+import com.sfwlibre.formulary.dto.UserDTO;
 import java.util.List;
 
 /**
@@ -13,7 +13,9 @@ import java.util.List;
  */
 public interface UsuarioService {
     
-       UsuarioDTO createUser(UsuarioDTO user);
+       UserDTO createUser(UserDTO user);
 
-       List<UsuarioDTO> listUser();
+       List<UserDTO> listUser();
+
+       Boolean isAuthenticatedUser(UserDTO user);
 }

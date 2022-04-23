@@ -4,7 +4,7 @@
  */
 package com.sfwlibre.formulary.service;
 
-import com.sfwlibre.formulary.dto.UsuarioDTO;
+import com.sfwlibre.formulary.dto.UserDTO;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -19,18 +19,23 @@ public class UsuarioServiceImpl implements UsuarioService{
           
  
             @Override
-            public UsuarioDTO createUser(UsuarioDTO user){
-
-                  if(user.getNombre().equalsIgnoreCase("raymrsite") && user.getPassword().equalsIgnoreCase("12345")){
-                     user.setAutorizado(true);
-                     
-                    return user;
-                     }
-                return user;
+            public UserDTO createUser(UserDTO user){
+                       return new UserDTO();     
             }
 
             @Override
-            public List<UsuarioDTO> listUser(){
+            public List<UserDTO> listUser(){
                      return new ArrayList<>();
             }
+            
+            @Override
+            public Boolean isAuthenticatedUser(UserDTO user){
+                     if(user.getNombre().equalsIgnoreCase("raymrsite") && user.getPassword().equalsIgnoreCase("12345")){
+                        user.setAutorizado(true);
+                     
+                    return user.isAutorizado();
+                     }
+                return false;
+            }
+            
 }

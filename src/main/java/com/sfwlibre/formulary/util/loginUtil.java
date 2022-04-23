@@ -5,7 +5,7 @@
 package com.sfwlibre.formulary.util;
 
 import com.sfwlibre.formulary.configuration.ContextConfiguration;
-import com.sfwlibre.formulary.dto.UsuarioDTO;
+import com.sfwlibre.formulary.dto.UserDTO;
 
 /**
  *
@@ -14,9 +14,13 @@ import com.sfwlibre.formulary.dto.UsuarioDTO;
 public class loginUtil extends ContextConfiguration{
 
 
-   public  boolean processDataUser(UsuarioDTO user){
-       UsuarioDTO usuarioDTO = getA().createUser( user );
+   public  boolean processDataUser(UserDTO user){
+       UserDTO usuarioDTO = getA().createUser( user );
        return usuarioDTO.isAutorizado();
+  }
+
+
+   public void createUser( UserDTO user){
 }
    
    

@@ -6,12 +6,12 @@ import java.util.List;
  *
  * @author Raymundo
  */
-public class UsuarioDTO {
+public class UserDTO {
    
     private String nombre;
     private String password;
     private boolean autorizado;
-    private List<UsuarioDTO> listUser;
+    private List<UserDTO> listUser;
 
     public String getNombre() {
         return nombre;
@@ -37,15 +37,15 @@ public class UsuarioDTO {
         this.autorizado = autorizado;
     }
 
-    public List<UsuarioDTO> getListUser() {
+    public List<UserDTO> getListUser() {
         return listUser;
     }
 
-    public void setListUser(List<UsuarioDTO> listUser) {
+    public void setListUser(List<UserDTO> listUser) {
         this.listUser = listUser;
     }
     
-    public void addOneUser(UsuarioDTO oneItem) {
+    public void addOneUser(UserDTO oneItem) {
         listUser.add(oneItem);
     }
 
