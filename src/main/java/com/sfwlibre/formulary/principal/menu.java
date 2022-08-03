@@ -206,6 +206,11 @@ public class menu extends javax.swing.JFrame {
                 jComboBox1ItemStateChanged(evt);
             }
         });
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("Usuario:");
 
@@ -451,7 +456,7 @@ public class menu extends javax.swing.JFrame {
         CatalogServiceImpl catalogService = new CatalogServiceImpl();
         util.loadCombo(catalogService.listCatalog(), jComboBoxMsi);
         util.loadCombo(catalogService.listCatalogUsers(user.getId()), jComboBox2);
-       String[] strArray = new String[] {"Una sola excibicion","A meses sin intereses", "A meses con intereses"};
+       String[] strArray = new String[] {"Seleccione...","Una sola excibicion","A meses sin intereses", "A meses con intereses"};
         
         util.loadCombo(strArray, jComboBox1);
     }//GEN-LAST:event_jMenu3MouseClicked
@@ -461,8 +466,17 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-          System.out.println(jComboBoxMsi.getSelectedItem());
+         
+          
     }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        if(jComboBox1.getSelectedIndex() != 0 && jComboBox1.getSelectedIndex() != 1){
+                 jLabelMsi.setVisible(true);
+                 jComboBoxMsi.setVisible(true);
+        }
+        
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
