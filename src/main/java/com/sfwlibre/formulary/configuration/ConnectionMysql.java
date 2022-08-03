@@ -8,8 +8,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,7 +34,7 @@ public Connection getConnectionDB(){
     Properties props = getConnectionData();
           try{  
                Class.forName("com.mysql.cj.jdbc.Driver");  
-               Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/srg_certification",props.getProperty("db.user"),"");  
+               Connection con = DriverManager.getConnection(props.getProperty("db.url"),props.getProperty("db.user"),"");  
                  return con;
               }catch(Exception e){ 
                                    return null;

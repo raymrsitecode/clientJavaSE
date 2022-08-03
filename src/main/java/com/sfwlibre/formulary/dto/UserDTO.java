@@ -1,24 +1,29 @@
 package com.sfwlibre.formulary.dto;
 
-import java.util.List;
-
 /**
  *
  * @author Raymundo
  */
 public class UserDTO {
    
-    private String nombre;
-    private String password;
-    private boolean autorizado;
-    private List<UserDTO> listUser;
+             private int id;
+             private String user;
+             private String password;
+             private String token_security;
 
-    public String getNombre() {
-        return nombre;
+    public int getId() {
+        return id;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getPassword() {
@@ -29,28 +34,16 @@ public class UserDTO {
         this.password = password;
     }
 
-    public boolean isAutorizado() {
-        return autorizado;
+    public String getToken_security() {
+        return token_security;
     }
 
-    public void setAutorizado(boolean autorizado) {
-        this.autorizado = autorizado;
+    public void setToken_security(String token_security) {
+        this.token_security = token_security;
     }
 
-    public List<UserDTO> getListUser() {
-        return listUser;
-    }
-
-    public void setListUser(List<UserDTO> listUser) {
-        this.listUser = listUser;
-    }
-    
-    public void addOneUser(UserDTO oneItem) {
-        listUser.add(oneItem);
-    }
-
-    @Override
+     @Override
     public String toString() {
-      return nombre + " " + password + " " + autorizado;
+      return user + " " + password + " " + token_security;
    }
 }

@@ -4,19 +4,21 @@
  */
 package com.sfwlibre.formulary.service;
 
+import com.sfwlibre.formulary.dao.UserDaoImpl;
 import com.sfwlibre.formulary.dto.UserDTO;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Raymundo
  */
-@Service
+
 public class UsuarioServiceImpl implements UsuarioService{
     
-          
+            private UserDaoImpl userDao = new UserDaoImpl();
+    
+    
  
             @Override
             public UserDTO createUser(UserDTO user){
@@ -28,14 +30,10 @@ public class UsuarioServiceImpl implements UsuarioService{
                      return new ArrayList<>();
             }
             
+            
             @Override
-            public Boolean isAuthenticatedUser(UserDTO user){
-                     if(user.getNombre().equalsIgnoreCase("raymrsite") && user.getPassword().equalsIgnoreCase("12345")){
-                        user.setAutorizado(true);
-                     
-                    return user.isAutorizado();
-                     }
-                return false;
+            public Boolean isAuthenticatedUser(UserDTO user){  
+                     return userDao.getUser(user).getUser() != null;
             }
             
 }

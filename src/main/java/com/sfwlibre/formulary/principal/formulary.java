@@ -5,6 +5,7 @@
 package com.sfwlibre.formulary.principal;
 
 import com.sfwlibre.formulary.dto.UserDTO;
+import com.sfwlibre.formulary.service.UsuarioServiceImpl;
 import com.sfwlibre.formulary.util.loginUtil;
 
 /**
@@ -91,12 +92,14 @@ public class formulary extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         UserDTO user = new UserDTO();
-        user.setNombre( jTextField1.getText() );
+        UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
+        
+        user.setUser(jTextField1.getText() );
         user.setPassword( jPasswordField1.getText() );
         loginUtil loginUtil = new loginUtil();
-        if(loginUtil.processDataUser(user)){
+        //fix here
+        if(usuarioService.isAuthenticatedUser(user)){
          menu menu = new menu();
-     
          menu.setVisible(true);
          this.hide();
 }

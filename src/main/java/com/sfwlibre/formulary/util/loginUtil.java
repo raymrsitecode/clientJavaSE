@@ -4,25 +4,11 @@
  */
 package com.sfwlibre.formulary.util;
 
-import com.sfwlibre.formulary.configuration.ContextConfiguration;
-import com.sfwlibre.formulary.dto.UserDTO;
-
 /**
  *
  * @author Raymundo
  */
-public class loginUtil extends ContextConfiguration{
-
-
-   public  boolean processDataUser(UserDTO user){
-       UserDTO usuarioDTO = getA().createUser( user );
-       return usuarioDTO.isAutorizado();
-  }
-
-
-   public void createUser( UserDTO user){
-}
-   
+public class loginUtil {
    
     
 }
