@@ -32,6 +32,8 @@ public class menu extends javax.swing.JFrame {
         UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
         util.loadTable(usuarioService.listUser(), jTable1);
         this.user = user;
+        jLabelMsi.setVisible(false);
+        jComboBoxMsi.setVisible(false);
     }
 
     /**
@@ -70,8 +72,8 @@ public class menu extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jTextField8 = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        jLabelMsi = new javax.swing.JLabel();
+        jComboBoxMsi = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
@@ -199,11 +201,17 @@ public class menu extends javax.swing.JFrame {
 
         jLabel9.setText("Tipo de Pago:");
 
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+
         jLabel10.setText("Usuario:");
 
         jLabel11.setText("No Tarjeta:");
 
-        jLabel12.setText("Msi:");
+        jLabelMsi.setText("Msi:");
 
         jButton2.setText("Registrar");
 
@@ -246,9 +254,9 @@ public class menu extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(314, 314, 314)
-                        .addComponent(jLabel12)
+                        .addComponent(jLabelMsi)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jComboBoxMsi, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addComponent(jLabel5)
@@ -300,8 +308,8 @@ public class menu extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel12)))
+                        .addComponent(jComboBoxMsi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelMsi)))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -441,7 +449,7 @@ public class menu extends javax.swing.JFrame {
         UtilMenu util = new UtilMenu();
         
         CatalogServiceImpl catalogService = new CatalogServiceImpl();
-        util.loadCombo(catalogService.listCatalog(), jComboBox3);
+        util.loadCombo(catalogService.listCatalog(), jComboBoxMsi);
         util.loadCombo(catalogService.listCatalogUsers(user.getId()), jComboBox2);
        String[] strArray = new String[] {"Una sola excibicion","A meses sin intereses", "A meses con intereses"};
         
@@ -451,6 +459,10 @@ public class menu extends javax.swing.JFrame {
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+          System.out.println(jComboBoxMsi.getSelectedItem());
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -492,11 +504,10 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBoxMsi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
@@ -507,6 +518,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelMsi;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
