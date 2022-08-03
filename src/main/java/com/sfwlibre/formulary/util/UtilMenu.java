@@ -4,9 +4,13 @@
  */
 package com.sfwlibre.formulary.util;
 
+import com.sfwlibre.formulary.dto.CatalogDTO;
 import com.sfwlibre.formulary.dto.UserDTO;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,6 +23,7 @@ public class UtilMenu {
         String columns[] = { "ID", "Name", "Age" };
         String data[][] = new String[8][3];
         int  i = 0;
+        
         for (UserDTO userDTO : list) {
             data[i][0] = userDTO.getName();
             data[i][1] = userDTO.getLastName();
@@ -28,5 +33,18 @@ public class UtilMenu {
         DefaultTableModel model = new DefaultTableModel(data, columns);
         jtable.setModel(model);
         
+    }
+    
+    public void clearFields(JTextField jt){
+        jt.setText("");
+    }
+    
+     public void loadCombo(List<CatalogDTO> list, JComboBox jCombo){
+        DefaultComboBoxModel dcm = new DefaultComboBoxModel();
+            jCombo.setModel( dcm );
+        for (CatalogDTO catalog : list) {
+            jCombo.addItem(catalog.getDescription());
+            
+        }
     }
 }

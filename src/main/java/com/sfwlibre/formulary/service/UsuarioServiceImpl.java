@@ -6,7 +6,6 @@ package com.sfwlibre.formulary.service;
 
 import com.sfwlibre.formulary.dao.UserDaoImpl;
 import com.sfwlibre.formulary.dto.UserDTO;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +19,7 @@ public class UsuarioServiceImpl implements UsuarioService{
     
             @Override
             public UserDTO createUser(UserDTO user){
-                       return new UserDTO();     
+                       return userDao.createUser(user);
             }
 
             @Override

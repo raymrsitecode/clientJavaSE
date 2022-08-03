@@ -2,21 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.sfwlibre.formulary.dao;
+package com.sfwlibre.formulary.service;
 
-import com.sfwlibre.formulary.dto.UserDTO;
+import com.sfwlibre.formulary.dto.CatalogDTO;
 import java.util.List;
 
 /**
  *
  * @author raymrsitecode
  */
-public interface UserDao {
-    
-    public UserDTO getUser(UserDTO user);
-    
-    public List<UserDTO> getListUsers();
-    
-    public UserDTO createUser(UserDTO user);
-    
+public interface CatalogService {
+     public List<CatalogDTO> listCatalog();
 }

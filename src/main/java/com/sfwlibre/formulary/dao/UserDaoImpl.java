@@ -7,13 +7,18 @@ package com.sfwlibre.formulary.dao;
 import com.sfwlibre.formulary.configuration.ConnectionMysql;
 import com.sfwlibre.formulary.dto.UserDTO;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 /**
  *
@@ -65,6 +70,34 @@ public class UserDaoImpl extends ConnectionMysql implements UserDao{
             con.close();
             return listUsers;
         }catch(SQLException e){
+            return null;
+        }
+    }
+
+    @Override
+    public UserDTO createUser(UserDTO user) {
+         Connection con = getConnectionDB();
+         String sql = " insert into sgc_t001_users (name, last_name, date_register, date_down, user, access_token) values (?, ?, ?, ?, ?, ? )";
+               PreparedStatement preparedStmt;
+        try {
+            
+                preparedStmt = con.prepareStatement(sql);
+                java.util.Date date=new java.util.Date();
+                java.sql.Date sqlDate=new java.sql.Date(date.getTime());
+                java.sql.Timestamp sqlTime=new java.sql.Timestamp(date.getTime());
+                preparedStmt.setString (1, user.getName());
+                preparedStmt.setString (2, user.getLastName());
+                preparedStmt.setDate(3, sqlDate );
+                preparedStmt.setDate(4, sqlDate);
+                preparedStmt.setString(5, user.getUser());
+                preparedStmt.setString(6, user.getPassword());
+                preparedStmt.execute();
+                
+
+                con.close();
+                return user;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }

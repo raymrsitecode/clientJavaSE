@@ -4,19 +4,14 @@
  */
 package com.sfwlibre.formulary.dao;
 
-import com.sfwlibre.formulary.dto.UserDTO;
+import com.sfwlibre.formulary.dto.CatalogDTO;
 import java.util.List;
 
 /**
  *
  * @author raymrsitecode
  */
-public interface UserDao {
+public interface CatalogDao {
     
-    public UserDTO getUser(UserDTO user);
-    
-    public List<UserDTO> getListUsers();
-    
-    public UserDTO createUser(UserDTO user);
-    
+    public List<CatalogDTO> listCatalog();
 }
