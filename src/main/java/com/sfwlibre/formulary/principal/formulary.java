@@ -19,6 +19,8 @@ public class formulary extends javax.swing.JFrame {
      */
     public formulary() {
         initComponents();
+        this.setLocationRelativeTo(null); 
+
     }
 
     /**

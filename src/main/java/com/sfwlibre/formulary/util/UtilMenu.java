@@ -48,6 +48,13 @@ public class UtilMenu {
         }
     }
      
-     
+     public void loadCombo(String[] list, JComboBox jCombo){
+        DefaultComboBoxModel dcm = new DefaultComboBoxModel();
+            jCombo.setModel( dcm );
+        for (String catalog : list) {
+            jCombo.addItem(catalog);
+            
+        }
+    }
      
 }
