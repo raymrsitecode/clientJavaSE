@@ -8,6 +8,8 @@ public class UserDTO {
    
              private int id;
              private String user;
+             private String name;
+             private String lastName;
              private String password;
              private String token_security;
 
@@ -42,8 +44,25 @@ public class UserDTO {
         this.token_security = token_security;
     }
 
-     @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Override
     public String toString() {
-      return user + " " + password + " " + token_security;
-   }
+        return "UserDTO{" + "id=" + id + ", user=" + user + ", name=" + name + ", lastName=" + lastName + ", password=" + password + ", token_security=" + token_security + '}';
+    }
+     
 }

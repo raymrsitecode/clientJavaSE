@@ -5,6 +5,7 @@
 package com.sfwlibre.formulary.dao;
 
 import com.sfwlibre.formulary.dto.UserDTO;
+import java.util.List;
 
 /**
  *
@@ -13,5 +14,7 @@ import com.sfwlibre.formulary.dto.UserDTO;
 public interface UserDao {
     
     public UserDTO getUser(UserDTO user);
+    
+    public List<UserDTO> getListUsers();
     
 }

@@ -18,8 +18,6 @@ public class UsuarioServiceImpl implements UsuarioService{
     
             private UserDaoImpl userDao = new UserDaoImpl();
     
-    
- 
             @Override
             public UserDTO createUser(UserDTO user){
                        return new UserDTO();     
@@ -27,7 +25,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
             @Override
             public List<UserDTO> listUser(){
-                     return new ArrayList<>();
+                     return userDao.getListUsers();
             }
             
             

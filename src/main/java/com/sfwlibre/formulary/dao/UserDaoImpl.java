@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,14 +27,15 @@ public class UserDaoImpl extends ConnectionMysql implements UserDao{
                Connection con = getConnectionDB();
                     try {
                        Statement stmt = con.createStatement();
-                       ResultSet rs=stmt.executeQuery("SELECT * FROM t_usuarios where user = '"+usuario.getUser()+"' and password = '"+usuario.getPassword()+"'");  
+                       ResultSet rs=stmt.executeQuery("SELECT * FROM sgcpagos.sgc_t001_users where user = '"+usuario.getUser()+"' and access_token = '"+usuario.getPassword()+"'");  
 
                                 UserDTO user = new UserDTO();
                                while(rs.next()){
-                                        user.setId( rs.getInt("id"));
+                                        user.setId( rs.getInt("user_id"));
                                         user.setUser(rs.getString("user"));
-                                        user.setPassword(rs.getString("password"));
-                                        user.setToken_security(rs.getString("token_security"));
+                                        user.setName(rs.getString("name"));
+                                        user.setLastName(rs.getString("last_name"));
+                                        
                                      }    
 
                                    con.close();
@@ -41,7 +44,30 @@ public class UserDaoImpl extends ConnectionMysql implements UserDao{
                         Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
                     }
             return null;
-            }
+    }
+
+    @Override
+    public List<UserDTO> getListUsers() {
+        Connection con = getConnectionDB();
+        
+        try{
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM sgcpagos.sgc_t001_users");
+            List<UserDTO> listUsers = new ArrayList<>();
+            while(rs.next()){
+                UserDTO user = new UserDTO();
+                        user.setId( rs.getInt("user_id"));
+                        user.setUser(rs.getString("user"));
+                        user.setName(rs.getString("name"));
+                        user.setLastName(rs.getString("last_name"));
+                        listUsers.add(user);
+            }            
+            con.close();
+            return listUsers;
+        }catch(SQLException e){
+            return null;
+        }
+    }
     
     
         
