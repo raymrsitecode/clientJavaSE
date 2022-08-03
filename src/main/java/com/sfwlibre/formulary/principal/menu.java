@@ -19,7 +19,10 @@ public class menu extends javax.swing.JFrame {
     /**
      * Creates new form menu
      */
-    public menu() {
+    
+    public  UserDTO user; 
+    
+    public menu(UserDTO user) {
         initComponents();
         jPanel1.setVisible(false);
         jPanel2.setVisible(false);
@@ -27,6 +30,7 @@ public class menu extends javax.swing.JFrame {
         UtilMenu util = new UtilMenu();
         UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
         util.loadTable(usuarioService.listUser(), jTable1);
+        this.user = user;
     }
 
     /**
@@ -369,6 +373,7 @@ public class menu extends javax.swing.JFrame {
         
         CatalogServiceImpl catalogService = new CatalogServiceImpl();
         util.loadCombo(catalogService.listCatalog(), jComboBox3);
+        util.loadCombo(catalogService.listCatalogUsers(user.getId()), jComboBox2);
     }//GEN-LAST:event_jMenu3MouseClicked
 
     /**
@@ -401,7 +406,7 @@ public class menu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menu().setVisible(true);
+                new menu(null).setVisible(true);
             }
         });
     }

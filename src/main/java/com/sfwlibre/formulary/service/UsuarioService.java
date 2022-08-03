@@ -17,5 +17,5 @@ public interface UsuarioService {
 
        List<UserDTO> listUser();
 
-       Boolean isAuthenticatedUser(UserDTO user);
+       UserDTO isAuthenticatedUser(UserDTO user);
 }

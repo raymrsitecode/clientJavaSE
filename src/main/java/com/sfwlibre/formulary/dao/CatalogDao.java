@@ -14,4 +14,6 @@ import java.util.List;
 public interface CatalogDao {
     
     public List<CatalogDTO> listCatalog();
+    
+    public List<CatalogDTO> listCatalogUsers(int user_id);
 }

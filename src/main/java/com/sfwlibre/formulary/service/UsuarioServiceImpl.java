@@ -29,8 +29,8 @@ public class UsuarioServiceImpl implements UsuarioService{
             
             
             @Override
-            public Boolean isAuthenticatedUser(UserDTO user){  
-                     return userDao.getUser(user).getUser() != null;
+            public UserDTO isAuthenticatedUser(UserDTO user){  
+                     return userDao.getUser(user);
             }
             
 }

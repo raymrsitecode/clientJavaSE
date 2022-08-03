@@ -98,8 +98,10 @@ public class formulary extends javax.swing.JFrame {
         user.setPassword( jPasswordField1.getText() );
         loginUtil loginUtil = new loginUtil();
         //fix here
-        if(usuarioService.isAuthenticatedUser(user)){
-         menu menu = new menu();
+        
+        user = usuarioService.isAuthenticatedUser(user);
+        if(user.getId() != 0){
+         menu menu = new menu(user);
          menu.setVisible(true);
          this.hide();
 }

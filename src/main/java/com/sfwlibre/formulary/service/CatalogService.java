@@ -13,4 +13,6 @@ import java.util.List;
  */
 public interface CatalogService {
      public List<CatalogDTO> listCatalog();
+     
+     public List<CatalogDTO> listCatalogUsers(int userId);
 }
