@@ -4,11 +4,13 @@
  */
 package com.sfwlibre.formulary.dao;
 
+import com.sfwlibre.formulary.dto.TransactionDTO;
+
 /**
  *
  * @author raymrsitecode
  */
 interface TransactionDao {
     
-    public void insertTransaction();
+    public void insertTransaction(TransactionDTO transaction);
 }
