@@ -32,8 +32,7 @@ public class menu extends javax.swing.JFrame {
         UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
         util.loadTable(usuarioService.listUser(), jTable1);
         this.user = user;
-        jLabelMsi.setVisible(false);
-        jComboBoxMsi.setVisible(false);
+        
     }
 
     /**
@@ -219,6 +218,11 @@ public class menu extends javax.swing.JFrame {
         jLabelMsi.setText("Msi:");
 
         jButton2.setText("Registrar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabelPersonal.setText("Es Personal?");
 
@@ -249,16 +253,12 @@ public class menu extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jComboBoxMsi, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(481, 481, 481)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addGap(64, 64, 64)
-                                .addComponent(jRadioButtonPersonal1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButtonPersonal2))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabelPersonal)
-                                .addGap(89, 89, 89)))))
+                        .addGap(469, 469, 469)
+                        .addComponent(jLabelPersonal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButtonPersonal1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonPersonal2)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(316, 316, 316)
@@ -461,6 +461,7 @@ public class menu extends javax.swing.JFrame {
         
         util.loadCombo(strArray, jComboBox1);
         util.loadCombo(catalogService.listCatalogCards(), jComboBoxNoTarjeta);
+        hideFormularyTransaction();
     }//GEN-LAST:event_jMenu3MouseClicked
 
     private void jRadioButtonPersonal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPersonal1ActionPerformed
@@ -473,16 +474,83 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        if(jComboBox1.getSelectedIndex() != 0 && jComboBox1.getSelectedIndex() != 1){
-                 jLabelMsi.setVisible(true);
-                 jComboBoxMsi.setVisible(true);
-        }else{
-             jLabelMsi.setVisible(false);
-             jComboBoxMsi.setVisible(false);
+        
+        switch (jComboBox1.getSelectedIndex()) {
+            case 0:
+                   hideFormularyTransaction();
+                break;
+            case 1:
+                showFormularyTransactionOneExibition();
+                break;    
+            case 2:
+                showFormularyTransactionMsi();
+                break;
+            default:
+                throw new AssertionError();
         }
+        
+        
         
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+      
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void hideFormularyTransaction(){
+        jLabelMsi.setVisible(false);
+        jComboBoxMsi.setVisible(false);
+        jLabelNoTarjeta.setVisible(false);
+        jComboBoxNoTarjeta.setVisible(false);
+        jLabelConcepto.setVisible(false);
+        jTextFieldConcepto.setVisible(false);
+        jLabelMonto.setVisible(false);
+        jTextFieldMonto.setVisible(false);
+        jLabelPersonal.setVisible(false);
+        jRadioButtonPersonal1.setVisible(false);
+        jRadioButtonPersonal2.setVisible(false);
+        jLabelUsuario.setVisible(false);
+        jComboBoxUsuario.setVisible(false);
+        jLabelComentarios.setVisible(false);
+        jTextAreaComentarios.setVisible(false);
+        
+    }
+       private void showFormularyTransactionMsi(){
+        jLabelMsi.setVisible(true);
+        jComboBoxMsi.setVisible(true);
+        jLabelNoTarjeta.setVisible(true);
+        jComboBoxNoTarjeta.setVisible(true);
+        jLabelConcepto.setVisible(true);
+        jTextFieldConcepto.setVisible(true);
+        jLabelMonto.setVisible(true);
+        jTextFieldMonto.setVisible(true);
+        jLabelPersonal.setVisible(true);
+        jRadioButtonPersonal1.setVisible(true);
+        jRadioButtonPersonal2.setVisible(true);
+        jLabelUsuario.setVisible(true);
+        jComboBoxUsuario.setVisible(true);
+        jLabelComentarios.setVisible(true);
+        jTextAreaComentarios.setVisible(true);
+        
+    }
+       
+       private void showFormularyTransactionOneExibition(){
+        jLabelNoTarjeta.setVisible(true);
+        jComboBoxNoTarjeta.setVisible(true);
+        jLabelConcepto.setVisible(true);
+        jTextFieldConcepto.setVisible(true);
+        jLabelMonto.setVisible(true);
+        jTextFieldMonto.setVisible(true);
+        jLabelPersonal.setVisible(true);
+        jRadioButtonPersonal1.setVisible(true);
+        jRadioButtonPersonal2.setVisible(true);
+        jLabelUsuario.setVisible(true);
+        jComboBoxUsuario.setVisible(true);
+        jLabelComentarios.setVisible(true);
+        jTextAreaComentarios.setVisible(true);
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
