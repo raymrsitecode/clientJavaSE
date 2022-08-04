@@ -64,5 +64,26 @@ public class CatalogDaoImpl extends ConnectionMysql implements CatalogDao {
         }
         
     }
+
+    @Override
+    public List<CatalogDTO> listCatalogCards() {
+        Connection con = getConnectionDB();
+        
+        try{
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM sgcpagos.sgc_t003_card");
+            List<CatalogDTO> listCatalog = new ArrayList<>();
+            while(rs.next()){
+                CatalogDTO catalog = new CatalogDTO();
+                        catalog.setId( rs.getInt("card_id"));
+                        catalog.setDescription(rs.getString("description"));
+                        listCatalog.add(catalog);
+            }            
+            con.close();
+            return listCatalog;
+        }catch(SQLException e){
+            return null;
+        }
+    }
     
 }

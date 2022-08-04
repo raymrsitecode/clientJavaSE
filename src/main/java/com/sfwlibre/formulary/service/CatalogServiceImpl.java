@@ -25,5 +25,10 @@ public class CatalogServiceImpl implements CatalogService{
     public List<CatalogDTO> listCatalogUsers(int userId) {
        return  catalogDao.listCatalogUsers(userId);
     }
+
+    @Override
+    public List<CatalogDTO> listCatalogCards() {
+        return catalogDao.listCatalogCards();
+    }
     
 }

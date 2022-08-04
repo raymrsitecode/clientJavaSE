@@ -15,4 +15,6 @@ public interface CatalogService {
      public List<CatalogDTO> listCatalog();
      
      public List<CatalogDTO> listCatalogUsers(int userId);
+     
+     public List<CatalogDTO> listCatalogCards();
 }

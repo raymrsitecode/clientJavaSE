@@ -42,6 +42,7 @@ public class UtilMenu {
      public void loadCombo(List<CatalogDTO> list, JComboBox jCombo){
         DefaultComboBoxModel dcm = new DefaultComboBoxModel();
             jCombo.setModel( dcm );
+            jCombo.addItem("Seleccione...");
         for (CatalogDTO catalog : list) {
             jCombo.addItem(catalog.getDescription());
             
@@ -51,6 +52,7 @@ public class UtilMenu {
      public void loadCombo(String[] list, JComboBox jCombo){
         DefaultComboBoxModel dcm = new DefaultComboBoxModel();
             jCombo.setModel( dcm );
+            jCombo.addItem("Seleccione...");
         for (String catalog : list) {
             jCombo.addItem(catalog);
             
