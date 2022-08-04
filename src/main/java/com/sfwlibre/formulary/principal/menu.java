@@ -4,10 +4,12 @@
  */
 package com.sfwlibre.formulary.principal;
 
+import com.sfwlibre.formulary.dto.TransactionDTO;
 import com.sfwlibre.formulary.dto.UserDTO;
 import com.sfwlibre.formulary.service.CatalogServiceImpl;
 import com.sfwlibre.formulary.service.UsuarioServiceImpl;
 import com.sfwlibre.formulary.util.UtilMenu;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +22,7 @@ public class menu extends javax.swing.JFrame {
      * Creates new form menu
      */
     
+    ButtonGroup group = new ButtonGroup();
     public  UserDTO user; 
     
     public menu(UserDTO user) {
@@ -32,7 +35,8 @@ public class menu extends javax.swing.JFrame {
         UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
         util.loadTable(usuarioService.listUser(), jTable1);
         this.user = user;
-        
+        group.add(jRadioButtonPersonal1);
+        group.add(jRadioButtonPersonal2);
     }
 
     /**
@@ -234,6 +238,11 @@ public class menu extends javax.swing.JFrame {
         });
 
         jRadioButtonPersonal2.setText("No");
+        jRadioButtonPersonal2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonPersonal2ActionPerformed(evt);
+            }
+        });
 
         jTextAreaComentarios.setColumns(20);
         jTextAreaComentarios.setRows(5);
@@ -465,11 +474,14 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu3MouseClicked
 
     private void jRadioButtonPersonal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPersonal1ActionPerformed
-        // TODO add your handling code here:
+          jLabelUsuario.setVisible(false);
+          jComboBoxUsuario.setVisible(false);
+      
     }//GEN-LAST:event_jRadioButtonPersonal1ActionPerformed
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-         
+         String seleccionado = (String)jComboBox1.getSelectedItem();
+          System.out.println(seleccionado);
           
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
@@ -494,8 +506,28 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      
+          int comboTypeTransacction =  jComboBox1.getSelectedIndex();
+          
+          if( comboTypeTransacction == 1){
+                JOptionPane.showMessageDialog(null, "Realizaremos una transaccion a un solo pago");
+                TransactionDTO transaction = new TransactionDTO();
+                transaction.setMsi_id( String.valueOf( jComboBoxMsi.getSelectedItem() ));
+                transaction.setCard_id( String.valueOf( jComboBoxNoTarjeta.getSelectedItem()) );
+                transaction.setDescription(jTextFieldConcepto.getText());
+                transaction.setAmount(  Integer.valueOf( jTextFieldMonto.getText() ) );
+                transaction.setUser_id( String.valueOf( jComboBoxUsuario.getSelectedItem() ));
+                
+          }else if(comboTypeTransacction == 2){
+                
+                JOptionPane.showMessageDialog(null, "Realizaremos una transaccion a MSI con un plazo de "+jComboBoxMsi.getSelectedItem()+ " MESES");
+          }
+          
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jRadioButtonPersonal2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPersonal2ActionPerformed
+          jLabelUsuario.setVisible(true);
+          jComboBoxUsuario.setVisible(true);
+    }//GEN-LAST:event_jRadioButtonPersonal2ActionPerformed
 
     private void hideFormularyTransaction(){
         jLabelMsi.setVisible(false);
@@ -513,6 +545,7 @@ public class menu extends javax.swing.JFrame {
         jComboBoxUsuario.setVisible(false);
         jLabelComentarios.setVisible(false);
         jTextAreaComentarios.setVisible(false);
+        jButton2.setVisible(false);
         
     }
        private void showFormularyTransactionMsi(){
@@ -531,7 +564,7 @@ public class menu extends javax.swing.JFrame {
         jComboBoxUsuario.setVisible(true);
         jLabelComentarios.setVisible(true);
         jTextAreaComentarios.setVisible(true);
-        
+        jButton2.setVisible(true);
     }
        
        private void showFormularyTransactionOneExibition(){
@@ -548,7 +581,9 @@ public class menu extends javax.swing.JFrame {
         jComboBoxUsuario.setVisible(true);
         jLabelComentarios.setVisible(true);
         jTextAreaComentarios.setVisible(true);
-        
+        jLabelMsi.setVisible(false);
+        jComboBoxMsi.setVisible(false);
+        jButton2.setVisible(true);
     }
     
     /**

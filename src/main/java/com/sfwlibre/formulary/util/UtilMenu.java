@@ -6,9 +6,12 @@ package com.sfwlibre.formulary.util;
 
 import com.sfwlibre.formulary.dto.CatalogDTO;
 import com.sfwlibre.formulary.dto.UserDTO;
+import java.util.Enumeration;
 import java.util.List;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -59,4 +62,17 @@ public class UtilMenu {
         }
     }
      
+     public static JRadioButton getSelection(ButtonGroup group)
+{
+        for (Enumeration e=group.getElements(); e.hasMoreElements(); )
+        {
+            JRadioButton b = (JRadioButton)e.nextElement();
+            if (b.getModel() == group.getSelection())
+            {
+                return b;
+            }
+        }
+
+        return null;
+}
 }
