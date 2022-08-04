@@ -6,6 +6,11 @@ package com.sfwlibre.formulary.dao;
 
 import com.sfwlibre.formulary.configuration.ConnectionMysql;
 import com.sfwlibre.formulary.dto.TransactionDTO;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,31 +20,32 @@ public class TransactionDaoImpl extends ConnectionMysql implements TransactionDa
 
     @Override
     public void insertTransaction(TransactionDTO transaction) {
-//          String SQL_Query = "INSERT INTO sgcpagos.sgc_t002_transactions ( description , amount , type_payment , date_amount_register , date_register , user_id , card_id , sgc_t005_msi_msi_id ) VALUES (   ?  , ?  , ?  , ?  , ?  , ?  , ?  , ?  )";
-//          Connection con = getConnectionDB();
-//         String sql = "insert into sgc_t001_users (name, last_name, date_register, date_down, user, access_token) values (?, ?, ?, ?, ?, ? )";
-//               PreparedStatement preparedStmt;
-//        try {
-//            
-//                preparedStmt = con.prepareStatement(sql);
-//                java.util.Date date=new java.util.Date();
-//                java.sql.Date sqlDate=new java.sql.Date(date.getTime());
-//                java.sql.Timestamp sqlTime=new java.sql.Timestamp(date.getTime());
-//                preparedStmt.setString (1, user.getName());
-//                preparedStmt.setString (2, user.getLastName());
-//                preparedStmt.setDate(3, sqlDate );
-//                preparedStmt.setDate(4, sqlDate);
-//                preparedStmt.setString(5, user.getUser());
-//                preparedStmt.setString(6, user.getPassword());
-//                preparedStmt.execute();
-//                
-//
-//                con.close();
-//                return user;
-//        } catch (SQLException ex) {
-//            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
-//            return null;
-//        }
+          
+          Connection con = getConnectionDB();
+         String SQL_Query = "INSERT INTO sgcpagos.sgc_t002_transactions ( description , amount , type_payment , date_amount_register , date_register , user_id , card_id , sgc_t005_msi_msi_id ) VALUES (   ?  , ?  , ?  , ?  , ?  , ?  , ?  , ?  )";
+               
+        try {
+                PreparedStatement preparedStmt = con.prepareStatement(SQL_Query);
+                java.util.Date date=new java.util.Date();
+                java.sql.Date sqlDate=new java.sql.Date(date.getTime());
+                java.sql.Timestamp sqlTime=new java.sql.Timestamp(date.getTime());
+                
+                preparedStmt.setString (1, transaction.getDescription());
+                preparedStmt.setDouble(2, transaction.getAmount() );
+                preparedStmt.setString(3, "PAYMENT_CASH");
+                preparedStmt.setDate(4, sqlDate);
+                preparedStmt.setDate(5, sqlDate);
+                preparedStmt.setInt(6, Integer.valueOf(transaction.getUser_id()) );
+                preparedStmt.setInt(7, Integer.valueOf(transaction.getCard_id()) );
+                preparedStmt.setInt(8, Integer.valueOf(transaction.getMsi_id()) );
+                preparedStmt.execute();
+                con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+          
+        }
     }
+    
+    
     
 }

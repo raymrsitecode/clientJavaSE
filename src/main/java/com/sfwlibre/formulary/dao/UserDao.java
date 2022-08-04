@@ -15,6 +15,8 @@ public interface UserDao {
     
     public UserDTO getUser(UserDTO user);
     
+    public int getUser(String name);
+    
     public List<UserDTO> getListUsers();
     
     public UserDTO createUser(UserDTO user);

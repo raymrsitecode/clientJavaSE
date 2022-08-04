@@ -17,6 +17,7 @@ public interface CatalogDao {
     
     public List<CatalogDTO> listCatalogUsers(int user_id);
     
+    
     public List<CatalogDTO> listCatalogCards();
         
 }
