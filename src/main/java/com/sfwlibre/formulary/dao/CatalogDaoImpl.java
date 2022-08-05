@@ -95,10 +95,7 @@ public class CatalogDaoImpl extends ConnectionMysql implements CatalogDao {
                               prep.setString(1, description);
             ResultSet rs = prep.executeQuery();
             while(rs.next()){
-                
-                        card_id = rs.getInt("card_id");
-                        
-                        
+                        card_id = rs.getInt("card_id");                        
             }            
             con.close();
             return card_id;
@@ -106,6 +103,25 @@ public class CatalogDaoImpl extends ConnectionMysql implements CatalogDao {
             
         }
         return card_id;
+    }
+
+    @Override
+    public int getMsiByDescription(String description) {
+       Connection con = getConnectionDB();
+         int msi_id = 0;
+        try{
+            PreparedStatement prep = con.prepareStatement( "SELECT * FROM sgcpagos.sgc_t005_msi where msi_id = ?");
+                              prep.setString(1, description);
+            ResultSet rs = prep.executeQuery();
+            while(rs.next()){
+                        msi_id = rs.getInt("msi_id");                        
+            }            
+            con.close();
+            return msi_id;
+        }catch(SQLException e){
+            
+        }
+        return msi_id;
     }
     
 }

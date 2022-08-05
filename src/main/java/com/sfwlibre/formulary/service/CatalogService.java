@@ -18,5 +18,7 @@ public interface CatalogService {
      
      public List<CatalogDTO> listCatalogCards();
      
-      public int getCardsByDescription(String description);
+     public int getCardsByDescription(String description);
+      
+     public int getMsiByDescription(String description);
 }

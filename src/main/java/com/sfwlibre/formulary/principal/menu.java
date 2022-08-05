@@ -7,6 +7,7 @@ package com.sfwlibre.formulary.principal;
 import com.sfwlibre.formulary.dto.TransactionDTO;
 import com.sfwlibre.formulary.dto.UserDTO;
 import com.sfwlibre.formulary.service.CatalogServiceImpl;
+import com.sfwlibre.formulary.service.TransactionServiceImpl;
 import com.sfwlibre.formulary.service.UsuarioServiceImpl;
 import com.sfwlibre.formulary.util.UtilMenu;
 import javax.swing.ButtonGroup;
@@ -509,21 +510,29 @@ public class menu extends javax.swing.JFrame {
           int comboTypeTransacction =  jComboBox1.getSelectedIndex();
           UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
           CatalogServiceImpl catalogService = new CatalogServiceImpl();
-          
+          TransactionServiceImpl transactionService = new TransactionServiceImpl();
+          TransactionDTO transaction = null;
           if( comboTypeTransacction == 1){
                 JOptionPane.showMessageDialog(null, "Realizaremos una transaccion a un solo pago");
-                TransactionDTO transaction = new TransactionDTO();
+                transaction = new TransactionDTO();
+                transaction.setDescription(jTextFieldConcepto.getText());
+                transaction.setAmount(  Integer.valueOf( jTextFieldMonto.getText() ) );
+                transaction.setUser_id( String.valueOf( usuarioService.getUser(jComboBoxUsuario.getSelectedItem().toString()) ));
+                
+                transaction.setCard_id( String.valueOf(catalogService.getCardsByDescription(String.valueOf( jComboBoxNoTarjeta.getSelectedItem() ))) );
+                transactionService.insertTransactionPaymentCash(transaction);
+                
+          }else if(comboTypeTransacction == 2){
+                transaction = new TransactionDTO();
+                System.out.println("value "+ String.valueOf(catalogService.getMsiByDescription(String.valueOf( jComboBoxMsi.getSelectedItem() ))));
+                transaction.setMsi_id( String.valueOf( jComboBoxMsi.getSelectedItem() ));
                 transaction.setDescription(jTextFieldConcepto.getText());
                 transaction.setAmount(  Integer.valueOf( jTextFieldMonto.getText() ) );
                 transaction.setUser_id( String.valueOf( usuarioService.getUser(jComboBoxUsuario.getSelectedItem().toString()) ));
                 transaction.setMsi_id( String.valueOf( jComboBoxMsi.getSelectedItem() ));
-                
-                System.out.println( catalogService.getCardsByDescription(String.valueOf( jComboBoxNoTarjeta.getSelectedItem() )) );
-                transaction.setCard_id( String.valueOf( jComboBoxNoTarjeta.getSelectedItem()) );
-                
-          }else if(comboTypeTransacction == 2){
-                
+                transaction.setCard_id( String.valueOf(catalogService.getCardsByDescription(String.valueOf( jComboBoxNoTarjeta.getSelectedItem() ))) );
                 JOptionPane.showMessageDialog(null, "Realizaremos una transaccion a MSI con un plazo de "+jComboBoxMsi.getSelectedItem()+ " MESES");
+                transactionService.insertTransactionMsi(transaction);
           }
           
     }//GEN-LAST:event_jButton2ActionPerformed

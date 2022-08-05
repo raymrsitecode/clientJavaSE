@@ -12,5 +12,6 @@ import com.sfwlibre.formulary.dto.TransactionDTO;
  */
 interface TransactionDao {
     
-    public void insertTransaction(TransactionDTO transaction);
+    public void insertTransactionPaymentCash(TransactionDTO transaction);
+    public void insertTransactionMsi(TransactionDTO transaction);
 }

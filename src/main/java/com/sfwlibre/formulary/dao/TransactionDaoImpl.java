@@ -19,10 +19,36 @@ import java.util.logging.Logger;
 public class TransactionDaoImpl extends ConnectionMysql implements TransactionDao {
 
     @Override
-    public void insertTransaction(TransactionDTO transaction) {
+    public void insertTransactionPaymentCash(TransactionDTO transaction) {
+        Connection con = getConnectionDB();
+         String SQL_Query = "INSERT INTO sgcpagos.sgc_t002_transactions ( description , amount , type_payment , date_amount_register , date_register , user_id , card_id  ) VALUES (   ?  , ?  , ?  , ?  , ?  , ?  , ?   )";
+               
+        try {
+                PreparedStatement preparedStmt = con.prepareStatement(SQL_Query);
+                java.util.Date date=new java.util.Date();
+                java.sql.Date sqlDate=new java.sql.Date(date.getTime());
+                java.sql.Timestamp sqlTime=new java.sql.Timestamp(date.getTime());
+                
+                preparedStmt.setString (1, transaction.getDescription());
+                preparedStmt.setDouble(2, transaction.getAmount() );
+                preparedStmt.setString(3, "PAYMENT_CASH");
+                preparedStmt.setDate(4, sqlDate);
+                preparedStmt.setDate(5, sqlDate);
+                preparedStmt.setInt(6, Integer.valueOf(transaction.getUser_id()) );
+                preparedStmt.setInt(7, Integer.valueOf(transaction.getCard_id()) );
+
+                preparedStmt.execute();
+                con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
           
-          Connection con = getConnectionDB();
-         String SQL_Query = "INSERT INTO sgcpagos.sgc_t002_transactions ( description , amount , type_payment , date_amount_register , date_register , user_id , card_id , sgc_t005_msi_msi_id ) VALUES (   ?  , ?  , ?  , ?  , ?  , ?  , ?  , ?  )";
+        }
+    }
+
+    @Override
+    public void insertTransactionMsi(TransactionDTO transaction) {
+        Connection con = getConnectionDB();
+         String SQL_Query = "INSERT INTO sgcpagos.sgc_t002_transactions ( description , amount , type_payment , date_amount_register , date_register , user_id , card_id, sgc_t005_msi_msi_id  ) VALUES (   ?  , ?  , ?  , ?  , ?  , ?  , ?, ?  )";
                
         try {
                 PreparedStatement preparedStmt = con.prepareStatement(SQL_Query);
@@ -45,6 +71,8 @@ public class TransactionDaoImpl extends ConnectionMysql implements TransactionDa
           
         }
     }
+
+
     
     
     

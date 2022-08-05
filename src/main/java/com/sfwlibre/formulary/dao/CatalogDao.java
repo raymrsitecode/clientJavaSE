@@ -22,5 +22,7 @@ public interface CatalogDao {
     
     public int getCardsByDescription(String description);
     
+    public int getMsiByDescription(String description);
+    
         
 }
