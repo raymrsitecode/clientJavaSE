@@ -30,5 +30,10 @@ public class CatalogServiceImpl implements CatalogService{
     public List<CatalogDTO> listCatalogCards() {
         return catalogDao.listCatalogCards();
     }
+
+    @Override
+    public int getCardsByDescription(String description) {
+       return catalogDao.getCardsByDescription(description);
+    }
     
 }

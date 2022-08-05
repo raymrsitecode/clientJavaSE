@@ -14,8 +14,11 @@ import java.util.List;
 public interface UsuarioService {
     
        UserDTO createUser(UserDTO user);
+       
+       public int getUser(String name);
 
        List<UserDTO> listUser();
 
        UserDTO isAuthenticatedUser(UserDTO user);
+       
 }

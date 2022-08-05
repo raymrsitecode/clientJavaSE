@@ -32,5 +32,10 @@ public class UsuarioServiceImpl implements UsuarioService{
             public UserDTO isAuthenticatedUser(UserDTO user){  
                      return userDao.getUser(user);
             }
+
+    @Override
+    public int getUser(String name) {
+        return userDao.getUser(name);
+    }
             
 }

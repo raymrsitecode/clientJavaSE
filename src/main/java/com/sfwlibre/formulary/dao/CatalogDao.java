@@ -19,5 +19,8 @@ public interface CatalogDao {
     
     
     public List<CatalogDTO> listCatalogCards();
+    
+    public int getCardsByDescription(String description);
+    
         
 }

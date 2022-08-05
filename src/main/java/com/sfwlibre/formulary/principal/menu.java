@@ -507,15 +507,19 @@ public class menu extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
           int comboTypeTransacction =  jComboBox1.getSelectedIndex();
+          UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
+          CatalogServiceImpl catalogService = new CatalogServiceImpl();
           
           if( comboTypeTransacction == 1){
                 JOptionPane.showMessageDialog(null, "Realizaremos una transaccion a un solo pago");
                 TransactionDTO transaction = new TransactionDTO();
-                transaction.setMsi_id( String.valueOf( jComboBoxMsi.getSelectedItem() ));
-                transaction.setCard_id( String.valueOf( jComboBoxNoTarjeta.getSelectedItem()) );
                 transaction.setDescription(jTextFieldConcepto.getText());
                 transaction.setAmount(  Integer.valueOf( jTextFieldMonto.getText() ) );
-                transaction.setUser_id( String.valueOf( jComboBoxUsuario.getSelectedItem() ));
+                transaction.setUser_id( String.valueOf( usuarioService.getUser(jComboBoxUsuario.getSelectedItem().toString()) ));
+                transaction.setMsi_id( String.valueOf( jComboBoxMsi.getSelectedItem() ));
+                
+                System.out.println( catalogService.getCardsByDescription(String.valueOf( jComboBoxNoTarjeta.getSelectedItem() )) );
+                transaction.setCard_id( String.valueOf( jComboBoxNoTarjeta.getSelectedItem()) );
                 
           }else if(comboTypeTransacction == 2){
                 

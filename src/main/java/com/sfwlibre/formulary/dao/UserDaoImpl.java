@@ -6,15 +6,11 @@ package com.sfwlibre.formulary.dao;
 
 import com.sfwlibre.formulary.configuration.ConnectionMysql;
 import com.sfwlibre.formulary.dto.UserDTO;
-import java.math.BigDecimal;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -109,7 +105,7 @@ public class UserDaoImpl extends ConnectionMysql implements UserDao{
         int user_id = 0;
                     try {
                        Statement stmt = con.createStatement();
-                       ResultSet rs=stmt.executeQuery("SELECT user_id FROM sgcpagos.sgc_t001_users where concat(name, \" \", last_name) = '"+name+"'");  
+                       ResultSet rs=stmt.executeQuery("SELECT user_id FROM sgcpagos.sgc_t001_users where concat(name, ' ', last_name) = '"+name+"'");  
 
                                 
                                while(rs.next()){
