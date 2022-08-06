@@ -110,7 +110,7 @@ public class CatalogDaoImpl extends ConnectionMysql implements CatalogDao {
        Connection con = getConnectionDB();
          int msi_id = 0;
         try{
-            PreparedStatement prep = con.prepareStatement( "SELECT * FROM sgcpagos.sgc_t005_msi where msi_id = ?");
+            PreparedStatement prep = con.prepareStatement( "SELECT * FROM sgcpagos.sgc_t005_msi where description = ?");
                               prep.setString(1, description);
             ResultSet rs = prep.executeQuery();
             while(rs.next()){

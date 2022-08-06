@@ -4,6 +4,7 @@
  */
 package com.sfwlibre.formulary.principal;
 
+import com.sfwlibre.formulary.domain.TransactionDomain;
 import com.sfwlibre.formulary.dto.TransactionDTO;
 import com.sfwlibre.formulary.dto.UserDTO;
 import com.sfwlibre.formulary.service.CatalogServiceImpl;
@@ -32,9 +33,10 @@ public class menu extends javax.swing.JFrame {
         jPanel1.setVisible(false);
         jPanel2.setVisible(false);
         jPanel3.setVisible(false);
+        jPanel4.setVisible(false);
         UtilMenu util = new UtilMenu();
         UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
-        util.loadTable(usuarioService.listUser(), jTable1);
+        util.loadTableUser(usuarioService.listUser(), jTable1);
         this.user = user;
         group.add(jRadioButtonPersonal1);
         group.add(jRadioButtonPersonal2);
@@ -484,36 +486,39 @@ public class menu extends javax.swing.JFrame {
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
         jPanel1.setVisible(true);
         jPanel2.setVisible(false);
+        jPanel4.setVisible(false);
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         jPanel1.setVisible(false);
         jPanel2.setVisible(true);    
         jPanel3.setVisible(false);
+        jPanel4.setVisible(false);
         UtilMenu util = new UtilMenu();
         UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
-        util.loadTable(usuarioService.listUser(), jTable1);
+        util.loadTableUser(usuarioService.listUser(), jTable1);
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
         jPanel1.setVisible(false);
         jPanel2.setVisible(false);    
         jPanel3.setVisible(true);
+        jPanel4.setVisible(true);
         UtilMenu util = new UtilMenu();
         
         CatalogServiceImpl catalogService = new CatalogServiceImpl();
         util.loadCombo(catalogService.listCatalog(), jComboBoxMsi);
         util.loadCombo(catalogService.listCatalogUsers(user.getId()), jComboBoxUsuario);
-       String[] strArray = new String[] {"Una sola excibicion","A meses sin intereses", "A meses con intereses"};
+        String[] strArray = new String[] {"Una sola excibicion","A meses sin intereses", "A meses con intereses"};
         
         util.loadCombo(strArray, jComboBox1);
         util.loadCombo(catalogService.listCatalogCards(), jComboBoxNoTarjeta);
         hideFormularyTransaction();
         
-        UtilMenu utild = new UtilMenu();
+       
         TransactionServiceImpl transactionServiceImpl = new TransactionServiceImpl();
         
-//        util.loadTable(transactionServiceImpl, jTable1);
+        util.loadTableTransactionCashPayment(transactionServiceImpl.getListTransaction(), jTable2);
     }//GEN-LAST:event_jMenu3MouseClicked
 
     private void jRadioButtonPersonal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPersonal1ActionPerformed
@@ -553,30 +558,42 @@ public class menu extends javax.swing.JFrame {
           UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
           CatalogServiceImpl catalogService = new CatalogServiceImpl();
           TransactionServiceImpl transactionService = new TransactionServiceImpl();
-          TransactionDTO transaction = null;
+          TransactionDomain transaction = null;
           if( comboTypeTransacction == 1){
                 JOptionPane.showMessageDialog(null, "Realizaremos una transaccion a un solo pago");
-                transaction = new TransactionDTO();
+                transaction = new TransactionDomain();
                 transaction.setDescription(jTextFieldConcepto.getText());
                 transaction.setAmount(  Integer.valueOf( jTextFieldMonto.getText() ) );
-                transaction.setUser_id( String.valueOf( usuarioService.getUser(jComboBoxUsuario.getSelectedItem().toString()) ));
                 
-                transaction.setCard_id( String.valueOf(catalogService.getCardsByDescription(String.valueOf( jComboBoxNoTarjeta.getSelectedItem() ))) );
+                
+                transaction.setCard_id( catalogService.getCardsByDescription(String.valueOf( jComboBoxNoTarjeta.getSelectedItem() )) );
+                if( UtilMenu.getSelectedButtonText(group).contentEquals("Si") ){
+                    transaction.setUser_id(  user.getId() );
+                }else{
+                    transaction.setUser_id(  usuarioService.getUser(jComboBoxUsuario.getSelectedItem().toString() ));
+                }
                 transactionService.insertTransactionPaymentCash(transaction);
                 
           }else if(comboTypeTransacction == 2){
-                transaction = new TransactionDTO();
+                transaction = new TransactionDomain();
                 System.out.println("value "+ String.valueOf(catalogService.getMsiByDescription(String.valueOf( jComboBoxMsi.getSelectedItem() ))));
-                transaction.setMsi_id( String.valueOf( jComboBoxMsi.getSelectedItem() ));
                 transaction.setDescription(jTextFieldConcepto.getText());
                 transaction.setAmount(  Integer.valueOf( jTextFieldMonto.getText() ) );
-                transaction.setUser_id( String.valueOf( usuarioService.getUser(jComboBoxUsuario.getSelectedItem().toString()) ));
-                transaction.setMsi_id( String.valueOf( jComboBoxMsi.getSelectedItem() ));
-                transaction.setCard_id( String.valueOf(catalogService.getCardsByDescription(String.valueOf( jComboBoxNoTarjeta.getSelectedItem() ))) );
+               
+                
+                if( UtilMenu.getSelectedButtonText(group).contentEquals("Si") ){
+                    transaction.setUser_id(  user.getId() );
+                }else{
+                    transaction.setUser_id(  usuarioService.getUser(jComboBoxUsuario.getSelectedItem().toString() ));
+                }
+                transaction.setMsi_id( catalogService.getMsiByDescription(jComboBoxMsi.getSelectedItem().toString()));
+                transaction.setCard_id( catalogService.getCardsByDescription(String.valueOf( jComboBoxNoTarjeta.getSelectedItem() )) );
                 JOptionPane.showMessageDialog(null, "Realizaremos una transaccion a MSI con un plazo de "+jComboBoxMsi.getSelectedItem()+ " MESES");
-                transactionService.insertTransactionMsi(transaction);
+                 transactionService.insertTransactionMsi(transaction);
           }
-          
+ 
+        UtilMenu util = new UtilMenu();
+        util.loadTableTransactionCashPayment(transactionService.getListTransaction(), jTable2);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jRadioButtonPersonal2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPersonal2ActionPerformed

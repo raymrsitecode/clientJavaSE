@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.sfwlibre.formulary.dto;
+package com.sfwlibre.formulary.domain;
 
 import java.sql.Date;
 
@@ -10,9 +10,8 @@ import java.sql.Date;
  *
  * @author raymrsitecode
  */
-public class TransactionDTO {
-    
-    /***
+public class TransactionDomain {
+        /***
      * atributo en el que viaja el id de la transaccion registrada
      * 
      */
@@ -31,7 +30,7 @@ public class TransactionDTO {
      * atributo en el que viaja el tipo de transaccion si es msi o onlyoneexbition de la transaccion registrada
      * 
      */
-    private String type_amount;
+    private int type_amount;
     /***
      * atributo en el que viaja el fecha  de la transaccion registrada
      * 
@@ -46,17 +45,17 @@ public class TransactionDTO {
      * atributo en el que viaja el id del usuario que adeuda la transaccion registrada
      * 
      */
-    private String user;
+    private int user_id;
     /***
      * atributo en el que viaja el id de la tarjeta que se utilizo en la transaccion registrada
      * 
      */
-    private String card;
+    private int card_id;
     /***
      * atributo en el que viaja el id de los meses a pagar de la transaccion registrada
      * 
      */
-    private String msi;
+    private int msi_id;
 
     public int getId() {
         return id;
@@ -82,11 +81,11 @@ public class TransactionDTO {
         this.amount = amount;
     }
 
-    public String getType_amount() {
+    public int getType_amount() {
         return type_amount;
     }
 
-    public void setType_amount(String type_amount) {
+    public void setType_amount(int type_amount) {
         this.type_amount = type_amount;
     }
 
@@ -106,34 +105,34 @@ public class TransactionDTO {
         this.date_register = date_register;
     }
 
-    public String getUser() {
-        return user;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
-    public String getCard() {
-        return card;
+    public int getCard_id() {
+        return card_id;
     }
 
-    public void setCard(String card) {
-        this.card = card;
+    public void setCard_id(int card_id) {
+        this.card_id = card_id;
     }
 
-    public String getMsi() {
-        return msi;
+    public int getMsi_id() {
+        return msi_id;
     }
 
-    public void setMsi(String msi) {
-        this.msi = msi;
+    public void setMsi_id(int msi_id) {
+        this.msi_id = msi_id;
     }
+
+
 
     @Override
     public String toString() {
-        return "TransactionDTO{" + "id=" + id + ", description=" + description + ", amount=" + amount + ", type_amount=" + type_amount + ", date_amount_register=" + date_amount_register + ", date_register=" + date_register + ", user=" + user + ", card=" + card + ", msi=" + msi + '}';
+        return "TransactionDTO{" + "id=" + id + ", description=" + description + ", amount=" + amount + ", type_amount=" + type_amount + ", date_amount_register=" + date_amount_register + ", date_register=" + date_register + ", user_id=" + user_id + ", card_id=" + card_id + ", msi_id=" + msi_id + '}';
     }
-    
-    
 }

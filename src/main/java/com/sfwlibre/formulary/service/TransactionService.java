@@ -4,7 +4,9 @@
  */
 package com.sfwlibre.formulary.service;
 
+import com.sfwlibre.formulary.domain.TransactionDomain;
 import com.sfwlibre.formulary.dto.TransactionDTO;
+import java.util.List;
 
 /**
  *
@@ -12,6 +14,7 @@ import com.sfwlibre.formulary.dto.TransactionDTO;
  */
 public interface TransactionService {
     
-     public void insertTransactionPaymentCash(TransactionDTO transaction);
-     public void insertTransactionMsi(TransactionDTO transaction);
+     public void insertTransactionPaymentCash(TransactionDomain transaction);
+     public void insertTransactionMsi(TransactionDomain transaction);
+     public List<TransactionDTO> getListTransaction();
 }

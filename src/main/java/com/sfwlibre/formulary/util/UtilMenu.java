@@ -5,9 +5,11 @@
 package com.sfwlibre.formulary.util;
 
 import com.sfwlibre.formulary.dto.CatalogDTO;
+import com.sfwlibre.formulary.dto.TransactionDTO;
 import com.sfwlibre.formulary.dto.UserDTO;
 import java.util.Enumeration;
 import java.util.List;
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -22,8 +24,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class UtilMenu {
     
-    public void loadTable(List<UserDTO> list, JTable jtable){
-        String columns[] = { "ID", "Name", "Age" };
+    public void loadTableUser(List<UserDTO> list, JTable jtable){
+        String columns[] = { "Nombre", "Apellido", "Usuario" };
         String data[][] = new String[8][3];
         int  i = 0;
         
@@ -31,6 +33,25 @@ public class UtilMenu {
             data[i][0] = userDTO.getName();
             data[i][1] = userDTO.getLastName();
             data[i][2] = userDTO.getUser();
+            i++;
+        }
+        DefaultTableModel model = new DefaultTableModel(data, columns);
+        jtable.setModel(model);
+        
+    }
+    
+     public void loadTableTransactionCashPayment(List<TransactionDTO> list, JTable jtable){
+        String columns[] = { "No Tarjeta", "Concepto", "plazo","Usuario","Monto" };
+        String data[][] = new String[list.size()][5];
+        int  i = 0;
+        
+        for (TransactionDTO transactionDTO : list) {
+            data[i][0] = transactionDTO.getCard() != null ? transactionDTO.getCard() : "";
+            data[i][1] = transactionDTO.getDescription();
+            data[i][2] = transactionDTO.getMsi();
+            data[i][3] = transactionDTO.getUser();
+            data[i][4] = String.valueOf(transactionDTO.getAmount());
+            
             i++;
         }
         DefaultTableModel model = new DefaultTableModel(data, columns);
@@ -62,17 +83,17 @@ public class UtilMenu {
         }
     }
      
-     public static JRadioButton getSelection(ButtonGroup group)
-{
-        for (Enumeration e=group.getElements(); e.hasMoreElements(); )
-        {
-            JRadioButton b = (JRadioButton)e.nextElement();
-            if (b.getModel() == group.getSelection())
-            {
-                return b;
-            }
-        }
 
-        return null;
-}
+     
+       public static String getSelectedButtonText(ButtonGroup buttonGroup) { 
+          for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); 
+                          buttons.hasMoreElements();) 
+                  { 
+              AbstractButton button = buttons.nextElement(); 
+              if (button.isSelected()) { 
+                      return button.getText(); 
+               } 
+              } 
+                return null; 
+           }
 }
