@@ -5,6 +5,7 @@
 package com.sfwlibre.formulary.dao;
 
 import com.sfwlibre.formulary.dto.TransactionDTO;
+import java.util.List;
 
 /**
  *
@@ -14,4 +15,6 @@ interface TransactionDao {
     
     public void insertTransactionPaymentCash(TransactionDTO transaction);
     public void insertTransactionMsi(TransactionDTO transaction);
+    
+    public List<TransactionDTO> getListTransaction();
 }
