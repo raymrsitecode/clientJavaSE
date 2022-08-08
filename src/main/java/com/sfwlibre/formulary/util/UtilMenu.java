@@ -41,16 +41,19 @@ public class UtilMenu {
     }
     
      public void loadTableTransactionCashPayment(List<TransactionDTO> list, JTable jtable){
-        String columns[] = { "No Tarjeta", "Concepto", "plazo","Usuario","Monto" };
-        String data[][] = new String[list.size()][5];
+        String columns[] = { "ID","No Tarjeta", "Concepto", "plazo","Usuario","Monto" };
+                System.out.println(list.size());
+
+        String data[][] = new String[list.size()][6];
         int  i = 0;
         
         for (TransactionDTO transactionDTO : list) {
-            data[i][0] = transactionDTO.getCard() != null ? transactionDTO.getCard() : "";
-            data[i][1] = transactionDTO.getDescription();
-            data[i][2] = transactionDTO.getMsi();
-            data[i][3] = transactionDTO.getUser();
-            data[i][4] = String.valueOf(transactionDTO.getAmount());
+            data[i][0] = String.valueOf(transactionDTO.getId());
+            data[i][1] = transactionDTO.getCard() != null ? transactionDTO.getCard() : "";
+            data[i][2] = transactionDTO.getDescription();
+            data[i][3] = transactionDTO.getMsi();
+            data[i][4] = transactionDTO.getUser();
+            data[i][5] = String.valueOf(transactionDTO.getAmount());
             
             i++;
         }

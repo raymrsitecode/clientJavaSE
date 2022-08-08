@@ -14,8 +14,8 @@ import java.util.List;
  */
 interface TransactionDao {
     
-    public void insertTransactionPaymentCash(TransactionDomain transaction);
-    public void insertTransactionMsi(TransactionDomain transaction);
+    public int insertTransactionPaymentCash(TransactionDomain transaction);
+    public int insertTransactionMsi(TransactionDomain transaction);
     
     public List<TransactionDTO> getListTransaction();
 }

@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 public class TransactionDaoImpl extends ConnectionMysql implements TransactionDao {
 
     @Override
-    public void insertTransactionPaymentCash(TransactionDomain transaction) {
+    public int insertTransactionPaymentCash(TransactionDomain transaction) {
         Connection con = getConnectionDB();
          String SQL_Query = "INSERT INTO sgcpagos.sgc_t002_transactions ( description , amount , type_payment , date_amount_register , date_register , user_id , card_id  ) VALUES (   ?  , ?  , ?  , ?  , ?  , ?  , ?   )";
                
@@ -48,12 +48,13 @@ public class TransactionDaoImpl extends ConnectionMysql implements TransactionDa
             Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
           
         }
+        return 0;
     }
 
     @Override
-    public void insertTransactionMsi(TransactionDomain transaction) {
+    public int insertTransactionMsi(TransactionDomain transaction) {
         Connection con = getConnectionDB();
-         String SQL_Query = "INSERT INTO sgcpagos.sgc_t002_transactions ( description , amount , type_payment , date_amount_register , date_register , user_id , card_id, sgc_t005_msi_msi_id  ) VALUES (   ?  , ?  , ?  , ?  , ?  , ?  , ?, ?  )";
+         String SQL_Query = "INSERT INTO sgcpagos.sgc_t002_transactions ( description , amount , type_payment , date_amount_register , date_register , user_id , card_id, msi_id  ) VALUES (   ?  , ?  , ?  , ?  , ?  , ?  , ?, ?  )";
                
         try {
                 PreparedStatement preparedStmt = con.prepareStatement(SQL_Query);
@@ -69,12 +70,14 @@ public class TransactionDaoImpl extends ConnectionMysql implements TransactionDa
                 preparedStmt.setInt(6, transaction.getUser_id() );
                 preparedStmt.setInt(7, transaction.getCard_id() );
                 preparedStmt.setInt(8, transaction.getMsi_id() );
-                preparedStmt.execute();
+                ResultSet rs = preparedStmt.executeQuery();
+                
                 con.close();
         } catch (SQLException ex) {
             Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
           
         }
+        return 0;
     }
 
     @Override
@@ -84,10 +87,11 @@ public class TransactionDaoImpl extends ConnectionMysql implements TransactionDa
         
         try{
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT CONCAT(u.name, u.last_name) name,t.description concepto, t.amount,c.description notarjeta, m.description plazo,t.type_payment tipopago FROM sgcpagos.sgc_t002_transactions t JOIN sgc_t001_users u ON t.user_id = u.user_id  JOIN sgc_t003_card c ON t.card_id = c.card_id JOIN sgc_t005_msi m ON t.sgc_t005_msi_msi_id = m.msi_id UNION SELECT CONCAT(u.name, u.last_name) name,t.description, t.amount,c.description, '' ,t.type_payment FROM sgcpagos.sgc_t002_transactions t  JOIN sgc_t001_users u ON t.user_id = u.user_id  JOIN sgc_t003_card c ON t.card_id = c.card_id  where t.type_payment <> 'MSI'");
+            ResultSet rs = stmt.executeQuery("SELECT t.transaction_id, CONCAT(u.name, u.last_name) name,t.description concepto, t.amount,c.description notarjeta, m.description plazo,t.type_payment tipopago FROM sgcpagos.sgc_t002_transactions t JOIN sgc_t001_users u ON t.user_id = u.user_id  JOIN sgc_t003_card c ON t.card_id = c.card_id JOIN sgc_t005_msi m ON t.msi_id = m.msi_id UNION SELECT t.transaction_id, CONCAT(u.name, u.last_name) name,t.description, t.amount,c.description, '' ,t.type_payment FROM sgcpagos.sgc_t002_transactions t  JOIN sgc_t001_users u ON t.user_id = u.user_id  JOIN sgc_t003_card c ON t.card_id = c.card_id  where t.type_payment <> 'MSI'");
             List<TransactionDTO> listTransaction = new ArrayList<>();
             while(rs.next()){
                 TransactionDTO transaction = new TransactionDTO();
+                        transaction.setId(rs.getInt("transaction_id"));
                         transaction.setCard(rs.getString("notarjeta"));
                         transaction.setDescription(rs.getString("concepto"));
                         transaction.setMsi(rs.getString("plazo"));

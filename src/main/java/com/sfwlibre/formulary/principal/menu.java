@@ -5,14 +5,17 @@
 package com.sfwlibre.formulary.principal;
 
 import com.sfwlibre.formulary.domain.TransactionDomain;
-import com.sfwlibre.formulary.dto.TransactionDTO;
 import com.sfwlibre.formulary.dto.UserDTO;
 import com.sfwlibre.formulary.service.CatalogServiceImpl;
 import com.sfwlibre.formulary.service.TransactionServiceImpl;
 import com.sfwlibre.formulary.service.UsuarioServiceImpl;
 import com.sfwlibre.formulary.util.UtilMenu;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 
 /**
  *
@@ -26,7 +29,11 @@ public class menu extends javax.swing.JFrame {
     
     ButtonGroup group = new ButtonGroup();
     public  UserDTO user; 
-    
+     final JPopupMenu popupMenu = new JPopupMenu();
+     JMenuItem showStatusPayments = new JMenuItem("Mostrar pagos realizados");
+     JMenuItem agregarAbono = new JMenuItem("Agregar Abono");
+     JMenuItem pagoCompletado = new JMenuItem("Completar Pago");
+     
     public menu(UserDTO user) {
         initComponents();
         this.setLocationRelativeTo(null); 
@@ -40,8 +47,47 @@ public class menu extends javax.swing.JFrame {
         this.user = user;
         group.add(jRadioButtonPersonal1);
         group.add(jRadioButtonPersonal2);
+        
+        showStatusPayments.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
+                 
+                   String selectedCellValue = (String) jTable2.getValueAt(jTable2.getSelectedRow() , jTable2.getSelectedColumn());
+                   System.out.println(selectedCellValue);
+            }
+        });
+        
+        agregarAbono.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
+                 
+                   String selectedCellValue = (String) jTable2.getValueAt(jTable2.getSelectedRow() , jTable2.getSelectedColumn());
+                   System.out.println(selectedCellValue);
+            }
+        });
+        
+        pagoCompletado.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                   JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
+                 
+                   String selectedCellValue = (String) jTable2.getValueAt(jTable2.getSelectedRow() , jTable2.getSelectedColumn());
+                   System.out.println(selectedCellValue);
+            }
+        });
+         popupMenu.add(showStatusPayments);
+         popupMenu.add(agregarAbono);
+         popupMenu.add(pagoCompletado);
+        jTable2.setComponentPopupMenu(popupMenu);
+        
+     
     }
 
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -461,6 +507,7 @@ public class menu extends javax.swing.JFrame {
           String apellidoM = jTextField3.getText();
           String user = jTextField6.getText();
           String password = jTextField7.getText();
+         
           
           UserDTO userDTO = new UserDTO();
           userDTO.setName(name);
@@ -546,7 +593,7 @@ public class menu extends javax.swing.JFrame {
                 showFormularyTransactionMsi();
                 break;
             default:
-                throw new AssertionError();
+                hideFormularyTransaction();
         }
         
         
@@ -591,7 +638,8 @@ public class menu extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Realizaremos una transaccion a MSI con un plazo de "+jComboBoxMsi.getSelectedItem()+ " MESES");
                  transactionService.insertTransactionMsi(transaction);
           }
- 
+   
+          String message = jTextAreaComentarios.getText();
         UtilMenu util = new UtilMenu();
         util.loadTableTransactionCashPayment(transactionService.getListTransaction(), jTable2);
     }//GEN-LAST:event_jButton2ActionPerformed
