@@ -6,6 +6,7 @@ package com.sfwlibre.formulary.principal;
 
 import com.sfwlibre.formulary.domain.TransactionDomain;
 import com.sfwlibre.formulary.dto.UserDTO;
+import com.sfwlibre.formulary.popMenuOptions.showComments;
 import com.sfwlibre.formulary.service.CatalogServiceImpl;
 import com.sfwlibre.formulary.service.ComentaryServiceImpl;
 import com.sfwlibre.formulary.service.TransactionServiceImpl;
@@ -34,6 +35,7 @@ public class menu extends javax.swing.JFrame {
      JMenuItem showStatusPayments = new JMenuItem("Mostrar pagos realizados");
      JMenuItem agregarAbono = new JMenuItem("Agregar Abono");
      JMenuItem pagoCompletado = new JMenuItem("Completar Pago");
+     JMenuItem showCommments = new JMenuItem("Mostrar comentarios");
      
     public menu(UserDTO user) {
         initComponents();
@@ -56,6 +58,7 @@ public class menu extends javax.swing.JFrame {
                  
                    String selectedCellValue = (String) jTable2.getValueAt(jTable2.getSelectedRow() , jTable2.getSelectedColumn());
                    System.out.println(selectedCellValue);
+                   
             }
         });
         
@@ -78,9 +81,23 @@ public class menu extends javax.swing.JFrame {
                    System.out.println(selectedCellValue);
             }
         });
+        
+        showCommments.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                   JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
+                 
+                   String selectedCellValue = (String) jTable2.getValueAt(jTable2.getSelectedRow() , jTable2.getSelectedColumn());
+                   System.out.println(selectedCellValue);
+                   
+                   showComments showComments = new showComments(user);
+                   showComments.setVisible(true);
+            }
+        });
          popupMenu.add(showStatusPayments);
          popupMenu.add(agregarAbono);
          popupMenu.add(pagoCompletado);
+         popupMenu.add(showCommments);
         jTable2.setComponentPopupMenu(popupMenu);
         
      

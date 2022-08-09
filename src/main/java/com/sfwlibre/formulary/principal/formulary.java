@@ -107,7 +107,7 @@ public class formulary extends javax.swing.JFrame {
          menu.setVisible(true);
          this.hide();
 }
-;
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
