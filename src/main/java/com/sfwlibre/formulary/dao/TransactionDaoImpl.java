@@ -27,9 +27,9 @@ public class TransactionDaoImpl extends ConnectionMysql implements TransactionDa
     public int insertTransactionPaymentCash(TransactionDomain transaction) {
         Connection con = getConnectionDB();
          String SQL_Query = "INSERT INTO sgcpagos.sgc_t002_transactions ( description , amount , type_payment , date_amount_register , date_register , user_id , card_id  ) VALUES (   ?  , ?  , ?  , ?  , ?  , ?  , ?   )";
-               
+            int last_inserted_id = 0;   
         try {
-                PreparedStatement preparedStmt = con.prepareStatement(SQL_Query);
+                PreparedStatement preparedStmt = con.prepareStatement(SQL_Query,Statement.RETURN_GENERATED_KEYS);
                 java.util.Date date=new java.util.Date();
                 java.sql.Date sqlDate=new java.sql.Date(date.getTime());
                 java.sql.Timestamp sqlTime  =new java.sql.Timestamp(date.getTime());
@@ -43,21 +43,26 @@ public class TransactionDaoImpl extends ConnectionMysql implements TransactionDa
                 preparedStmt.setInt(7, transaction.getCard_id() );
 
                 preparedStmt.execute();
+                ResultSet rs = preparedStmt.getGeneratedKeys();
+                if(rs.next())
+                {
+                     last_inserted_id = rs.getInt(1);
+                }
                 con.close();
         } catch (SQLException ex) {
             Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
           
         }
-        return 0;
+        return last_inserted_id;
     }
 
     @Override
     public int insertTransactionMsi(TransactionDomain transaction) {
         Connection con = getConnectionDB();
          String SQL_Query = "INSERT INTO sgcpagos.sgc_t002_transactions ( description , amount , type_payment , date_amount_register , date_register , user_id , card_id, msi_id  ) VALUES (   ?  , ?  , ?  , ?  , ?  , ?  , ?, ?  )";
-               
+         int last_inserted_id = 0;  
         try {
-                PreparedStatement preparedStmt = con.prepareStatement(SQL_Query);
+                PreparedStatement preparedStmt = con.prepareStatement(SQL_Query,Statement.RETURN_GENERATED_KEYS);
                 java.util.Date date=new java.util.Date();
                 java.sql.Date sqlDate=new java.sql.Date(date.getTime());
                 java.sql.Timestamp sqlTime=new java.sql.Timestamp(date.getTime());
@@ -70,14 +75,18 @@ public class TransactionDaoImpl extends ConnectionMysql implements TransactionDa
                 preparedStmt.setInt(6, transaction.getUser_id() );
                 preparedStmt.setInt(7, transaction.getCard_id() );
                 preparedStmt.setInt(8, transaction.getMsi_id() );
-                ResultSet rs = preparedStmt.executeQuery();
-                
+                preparedStmt.executeUpdate();
+                ResultSet rs = preparedStmt.getGeneratedKeys();
+                if(rs.next())
+                {
+                     last_inserted_id = rs.getInt(1);
+                }
                 con.close();
         } catch (SQLException ex) {
             Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
           
         }
-        return 0;
+        return last_inserted_id;
     }
 
     @Override

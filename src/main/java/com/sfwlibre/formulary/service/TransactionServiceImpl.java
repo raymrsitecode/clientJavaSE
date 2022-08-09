@@ -18,13 +18,13 @@ public class TransactionServiceImpl implements TransactionService{
     private TransactionDaoImpl transactionDao = new TransactionDaoImpl();
     
     @Override
-    public void insertTransactionPaymentCash(TransactionDomain transaction) {
-           transactionDao.insertTransactionPaymentCash(transaction);
+    public int insertTransactionPaymentCash(TransactionDomain transaction) {
+           return transactionDao.insertTransactionPaymentCash(transaction);
     }
 
     @Override
-    public void insertTransactionMsi(TransactionDomain transaction) {
-          transactionDao.insertTransactionMsi(transaction);
+    public int insertTransactionMsi(TransactionDomain transaction) {
+          return transactionDao.insertTransactionMsi(transaction);
     }
 
     @Override

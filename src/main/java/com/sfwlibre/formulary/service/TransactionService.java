@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface TransactionService {
     
-     public void insertTransactionPaymentCash(TransactionDomain transaction);
-     public void insertTransactionMsi(TransactionDomain transaction);
+     public int insertTransactionPaymentCash(TransactionDomain transaction);
+     public int insertTransactionMsi(TransactionDomain transaction);
      public List<TransactionDTO> getListTransaction();
 }

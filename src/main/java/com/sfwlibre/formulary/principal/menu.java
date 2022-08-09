@@ -7,6 +7,7 @@ package com.sfwlibre.formulary.principal;
 import com.sfwlibre.formulary.domain.TransactionDomain;
 import com.sfwlibre.formulary.dto.UserDTO;
 import com.sfwlibre.formulary.service.CatalogServiceImpl;
+import com.sfwlibre.formulary.service.ComentaryServiceImpl;
 import com.sfwlibre.formulary.service.TransactionServiceImpl;
 import com.sfwlibre.formulary.service.UsuarioServiceImpl;
 import com.sfwlibre.formulary.util.UtilMenu;
@@ -300,7 +301,7 @@ public class menu extends javax.swing.JFrame {
         jTextAreaComentarios.setRows(5);
         jScrollPane2.setViewportView(jTextAreaComentarios);
 
-        jLabelComentarios.setText("Comentarios::");
+        jLabelComentarios.setText("Comentarios:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -605,7 +606,9 @@ public class menu extends javax.swing.JFrame {
           UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
           CatalogServiceImpl catalogService = new CatalogServiceImpl();
           TransactionServiceImpl transactionService = new TransactionServiceImpl();
+          ComentaryServiceImpl comentaryService = new ComentaryServiceImpl();
           TransactionDomain transaction = null;
+          int transaction_id = 0;
           if( comboTypeTransacction == 1){
                 JOptionPane.showMessageDialog(null, "Realizaremos una transaccion a un solo pago");
                 transaction = new TransactionDomain();
@@ -619,7 +622,7 @@ public class menu extends javax.swing.JFrame {
                 }else{
                     transaction.setUser_id(  usuarioService.getUser(jComboBoxUsuario.getSelectedItem().toString() ));
                 }
-                transactionService.insertTransactionPaymentCash(transaction);
+                transaction_id = transactionService.insertTransactionPaymentCash(transaction);
                 
           }else if(comboTypeTransacction == 2){
                 transaction = new TransactionDomain();
@@ -636,10 +639,12 @@ public class menu extends javax.swing.JFrame {
                 transaction.setMsi_id( catalogService.getMsiByDescription(jComboBoxMsi.getSelectedItem().toString()));
                 transaction.setCard_id( catalogService.getCardsByDescription(String.valueOf( jComboBoxNoTarjeta.getSelectedItem() )) );
                 JOptionPane.showMessageDialog(null, "Realizaremos una transaccion a MSI con un plazo de "+jComboBoxMsi.getSelectedItem()+ " MESES");
-                 transactionService.insertTransactionMsi(transaction);
+                transaction_id = transactionService.insertTransactionMsi(transaction);
           }
    
-          String message = jTextAreaComentarios.getText();
+        String message = jTextAreaComentarios.getText();
+        
+        comentaryService.createComentary(message, transaction_id);
         UtilMenu util = new UtilMenu();
         util.loadTableTransactionCashPayment(transactionService.getListTransaction(), jTable2);
     }//GEN-LAST:event_jButton2ActionPerformed
