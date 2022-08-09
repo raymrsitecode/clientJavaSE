@@ -5,8 +5,8 @@
 package com.sfwlibre.formulary.principal;
 
 import com.sfwlibre.formulary.domain.TransactionDomain;
+import com.sfwlibre.formulary.dto.CommentDTO;
 import com.sfwlibre.formulary.dto.UserDTO;
-import com.sfwlibre.formulary.popMenuOptions.showComments;
 import com.sfwlibre.formulary.service.CatalogServiceImpl;
 import com.sfwlibre.formulary.service.ComentaryServiceImpl;
 import com.sfwlibre.formulary.service.TransactionServiceImpl;
@@ -14,6 +14,7 @@ import com.sfwlibre.formulary.service.UsuarioServiceImpl;
 import com.sfwlibre.formulary.util.UtilMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -44,6 +45,7 @@ public class menu extends javax.swing.JFrame {
         jPanel2.setVisible(false);
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
+        jPanel5.setVisible(false);
         UtilMenu util = new UtilMenu();
         UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
         util.loadTableUser(usuarioService.listUser(), jTable1);
@@ -85,13 +87,22 @@ public class menu extends javax.swing.JFrame {
         showCommments.addActionListener( new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                   JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
-                 
                    String selectedCellValue = (String) jTable2.getValueAt(jTable2.getSelectedRow() , jTable2.getSelectedColumn());
                    System.out.println(selectedCellValue);
+                   ComentaryServiceImpl commentaryService = new ComentaryServiceImpl();
+                   UtilMenu util = new UtilMenu();
+                   List<CommentDTO> listComments = commentaryService.getListComments(Integer.parseInt(selectedCellValue));
                    
-                   showComments showComments = new showComments(user);
-                   showComments.setVisible(true);
+                   if( listComments.isEmpty() ){
+                       JOptionPane.showMessageDialog(null,"La operación no tiene relacionado ningún comentario");
+                         jPanel5.setVisible(false);
+                   }else{
+                         util.loadTableComments(listComments, jTable4);    
+                         jPanel5.setVisible(true);
+                   }
+                   
+                   
+                   
             }
         });
          popupMenu.add(showStatusPayments);
@@ -115,6 +126,8 @@ public class menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -154,10 +167,17 @@ public class menu extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane4.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -451,8 +471,38 @@ public class menu extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane6.setViewportView(jTable4);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 1265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Registrar Usuarios");
@@ -492,11 +542,12 @@ public class menu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -508,7 +559,9 @@ public class menu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -551,14 +604,17 @@ public class menu extends javax.swing.JFrame {
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
         jPanel1.setVisible(true);
         jPanel2.setVisible(false);
+        jPanel3.setVisible(false);
         jPanel4.setVisible(false);
+        jPanel5.setVisible(false);
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         jPanel1.setVisible(false);
-        jPanel2.setVisible(true);    
+        jPanel2.setVisible(true);
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
+        jPanel5.setVisible(false);
         UtilMenu util = new UtilMenu();
         UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
         util.loadTableUser(usuarioService.listUser(), jTable1);
@@ -569,6 +625,7 @@ public class menu extends javax.swing.JFrame {
         jPanel2.setVisible(false);    
         jPanel3.setVisible(true);
         jPanel4.setVisible(true);
+        jPanel4.setVisible(false);
         UtilMenu util = new UtilMenu();
         
         CatalogServiceImpl catalogService = new CatalogServiceImpl();
@@ -792,13 +849,18 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JRadioButton jRadioButtonPersonal1;
     private javax.swing.JRadioButton jRadioButtonPersonal2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable4;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextAreaComentarios;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

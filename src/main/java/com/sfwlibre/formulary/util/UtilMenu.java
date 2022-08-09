@@ -5,6 +5,7 @@
 package com.sfwlibre.formulary.util;
 
 import com.sfwlibre.formulary.dto.CatalogDTO;
+import com.sfwlibre.formulary.dto.CommentDTO;
 import com.sfwlibre.formulary.dto.TransactionDTO;
 import com.sfwlibre.formulary.dto.UserDTO;
 import java.util.Enumeration;
@@ -57,6 +58,28 @@ public class UtilMenu {
             
             i++;
         }
+        DefaultTableModel model = new DefaultTableModel(data, columns);
+        jtable.setModel(model);
+        
+    }
+     
+     
+     public void loadTableComments(List<CommentDTO> list, JTable jtable){
+        String columns[] = { "ID","Comentario", "Fecha" };
+                System.out.println(list.size());
+
+        String data[][] = new String[list.size()][3];
+        int  i = 0;
+        if(!list.isEmpty()){
+        for (CommentDTO commentDTO : list) {
+            data[i][0] = String.valueOf(commentDTO.getId());
+            data[i][1] = commentDTO.getDescription();
+            data[i][2] = commentDTO.getDate_register().toString();
+            
+            i++;
+        }    
+        }
+        
         DefaultTableModel model = new DefaultTableModel(data, columns);
         jtable.setModel(model);
         
