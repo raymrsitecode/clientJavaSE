@@ -5,7 +5,9 @@
 package com.sfwlibre.formulary.service;
 
 import com.sfwlibre.formulary.dao.TransactionDaoImpl;
+import com.sfwlibre.formulary.domain.PaymentDomain;
 import com.sfwlibre.formulary.domain.TransactionDomain;
+import com.sfwlibre.formulary.dto.PaymentDTO;
 import com.sfwlibre.formulary.dto.TransactionDTO;
 import java.util.List;
 
@@ -15,7 +17,7 @@ import java.util.List;
  */
 public class TransactionServiceImpl implements TransactionService{
 
-    private TransactionDaoImpl transactionDao = new TransactionDaoImpl();
+    private final TransactionDaoImpl transactionDao = new TransactionDaoImpl();
     
     @Override
     public int insertTransactionPaymentCash(TransactionDomain transaction) {
@@ -30,6 +32,16 @@ public class TransactionServiceImpl implements TransactionService{
     @Override
     public List<TransactionDTO> getListTransaction() {
          return transactionDao.getListTransaction();
+    }
+
+    @Override
+    public void inserTransactionPayment(PaymentDomain payment) {
+        transactionDao.inserTransactionPayment(payment);
+    }
+
+    @Override
+    public List<PaymentDTO> getListTransactionPayment(int transactionId) {
+        return transactionDao.getListTransactionPayment(transactionId);
     }
     
 }

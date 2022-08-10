@@ -5,7 +5,9 @@
 package com.sfwlibre.formulary.dao;
 
 import com.sfwlibre.formulary.configuration.ConnectionMysql;
+import com.sfwlibre.formulary.domain.PaymentDomain;
 import com.sfwlibre.formulary.domain.TransactionDomain;
+import com.sfwlibre.formulary.dto.PaymentDTO;
 import com.sfwlibre.formulary.dto.TransactionDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -58,7 +60,7 @@ public class TransactionDaoImpl extends ConnectionMysql implements TransactionDa
 
     @Override
     public int insertTransactionMsi(TransactionDomain transaction) {
-        Connection con = getConnectionDB();
+         Connection con = getConnectionDB();
          String SQL_Query = "INSERT INTO sgcpagos.sgc_t002_transactions ( description , amount , type_payment , date_amount_register , date_register , user_id , card_id, msi_id  ) VALUES (   ?  , ?  , ?  , ?  , ?  , ?  , ?, ?  )";
          int last_inserted_id = 0;  
         try {
@@ -115,6 +117,60 @@ public class TransactionDaoImpl extends ConnectionMysql implements TransactionDa
             return null;
         }
     }
+
+    @Override
+    public void inserTransactionPayment(PaymentDomain payment) {
+        Connection con = getConnectionDB();
+         String SQL_Query = "INSERT INTO  sgcpagos.sgc_t007_breakdown (  amount , isPayed , date_register , date_payout ,  sgc_t002_transactions_transaction_id ) VALUES (  ? , ? , ? , ? , ? )";
+         
+        try {
+                PreparedStatement preparedStmt = con.prepareStatement(SQL_Query);
+                java.util.Date date=new java.util.Date();
+                java.sql.Date sqlDate=new java.sql.Date(date.getTime());
+                java.sql.Timestamp sqlTime=new java.sql.Timestamp(date.getTime());
+                
+                preparedStmt.setDouble(1, payment.getAmount());
+                preparedStmt.setBoolean(2, false);
+                preparedStmt.setTimestamp(3, sqlTime);
+                preparedStmt.setTimestamp(4, sqlTime);
+                preparedStmt.setInt(5, payment.getTransactionId());
+   
+                preparedStmt.executeUpdate();
+              
+                con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+          
+        }
+    }
+
+    @Override
+    public List<PaymentDTO> getListTransactionPayment(int transactionId) {
+        Connection con = getConnectionDB();
+        
+        try{
+            PreparedStatement prep = con.prepareStatement( "SELECT breakdown_id,amount, isPayed,date_register,date_payout from sgcpagos.sgc_t007_breakdown b where sgc_t002_transactions_transaction_id = ?");
+                              prep.setInt(1, transactionId);
+                    ResultSet rs = prep.executeQuery();
+                    
+            List<PaymentDTO> listPayment = new ArrayList<>();
+            while(rs.next()){
+                PaymentDTO payment = new PaymentDTO();
+                           payment.setId(rs.getInt("breakdown_id"));
+                           payment.setAmount(rs.getDouble("amount"));
+                           payment.setIsPayed(rs.getBoolean("isPayed"));
+                           payment.setDatePayout(rs.getTimestamp("date_payout"));
+                           payment.setDateRegister(rs.getTimestamp("date_register"));
+                           listPayment.add(payment);
+            }            
+            con.close();
+            return listPayment;
+        }catch(SQLException e){
+            return null;
+        }
+    }
+    
+    
 
 
     

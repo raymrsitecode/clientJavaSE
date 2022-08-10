@@ -4,7 +4,9 @@
  */
 package com.sfwlibre.formulary.dao;
 
+import com.sfwlibre.formulary.domain.PaymentDomain;
 import com.sfwlibre.formulary.domain.TransactionDomain;
+import com.sfwlibre.formulary.dto.PaymentDTO;
 import com.sfwlibre.formulary.dto.TransactionDTO;
 import java.util.List;
 
@@ -18,4 +20,8 @@ interface TransactionDao {
     public int insertTransactionMsi(TransactionDomain transaction);
     
     public List<TransactionDTO> getListTransaction();
+    
+    public void inserTransactionPayment(PaymentDomain payment);
+    
+    public List<PaymentDTO> getListTransactionPayment(int transactionId);
 }

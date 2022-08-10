@@ -6,6 +6,7 @@ package com.sfwlibre.formulary.util;
 
 import com.sfwlibre.formulary.dto.CatalogDTO;
 import com.sfwlibre.formulary.dto.CommentDTO;
+import com.sfwlibre.formulary.dto.PaymentDTO;
 import com.sfwlibre.formulary.dto.TransactionDTO;
 import com.sfwlibre.formulary.dto.UserDTO;
 import java.util.Enumeration;
@@ -14,7 +15,6 @@ import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -75,6 +75,29 @@ public class UtilMenu {
             data[i][0] = String.valueOf(commentDTO.getId());
             data[i][1] = commentDTO.getDescription();
             data[i][2] = commentDTO.getDate_register().toString();
+            
+            i++;
+        }    
+        }
+        
+        DefaultTableModel model = new DefaultTableModel(data, columns);
+        jtable.setModel(model);
+        
+    }
+     
+      public void loadTablePayments(List<PaymentDTO> list, JTable jtable){
+        String columns[] = { "ID","MONTO", "PAGADO","FECHA DEL PAGO ", "FECHA DE REGISTRO" };
+                System.out.println(list.size());
+
+        String data[][] = new String[list.size()][5];
+        int  i = 0;
+        if(!list.isEmpty()){
+        for (PaymentDTO paymentDTO : list) {
+            data[i][0] = String.valueOf(paymentDTO.getId());
+            data[i][1] = String.valueOf(paymentDTO.getAmount());
+            data[i][2] = paymentDTO.isIsPayed() ? "SI": "NO";
+            data[i][3] = paymentDTO.getDatePayout().toString();
+            data[i][4] = paymentDTO.getDateRegister().toString();
             
             i++;
         }    
