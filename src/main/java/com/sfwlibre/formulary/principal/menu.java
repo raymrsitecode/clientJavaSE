@@ -8,6 +8,7 @@ import com.sfwlibre.formulary.domain.PaymentDomain;
 import com.sfwlibre.formulary.domain.TransactionDomain;
 import com.sfwlibre.formulary.dto.CommentDTO;
 import com.sfwlibre.formulary.dto.PaymentDTO;
+import com.sfwlibre.formulary.dto.TransactionDTO;
 import com.sfwlibre.formulary.dto.UserDTO;
 import com.sfwlibre.formulary.service.CatalogServiceImpl;
 import com.sfwlibre.formulary.service.ComentaryServiceImpl;
@@ -35,6 +36,7 @@ public class menu extends javax.swing.JFrame {
     ButtonGroup group = new ButtonGroup();
     public  UserDTO user; 
     public PaymentDTO paymentDTO;
+    public TransactionDTO transactionDTO;
      final JPopupMenu popupMenu = new JPopupMenu();
      JMenuItem showStatusPayments = new JMenuItem("Mostrar pagos realizados");
      JMenuItem agregarAbono = new JMenuItem("Agregar Abono");
@@ -73,7 +75,7 @@ public class menu extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
                    String selectedCellValue = (String) jTable2.getValueAt(jTable2.getSelectedRow() , jTable2.getSelectedColumn());
                    paymentDTO = new PaymentDTO();
-                   paymentDTO.setId( Integer.valueOf(selectedCellValue) );
+                   paymentDTO.setId(Integer.valueOf(selectedCellValue) );
                    UtilMenu util = new UtilMenu();
                    TransactionServiceImpl transactionService = new TransactionServiceImpl();
                    List<PaymentDTO> listPayments = transactionService.getListTransactionPayment(paymentDTO.getId());
@@ -114,13 +116,23 @@ public class menu extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                    String selectedCellValue = (String) jTable2.getValueAt(jTable2.getSelectedRow() , jTable2.getSelectedColumn());
                    System.out.println(selectedCellValue);
+                   transactionDTO = new TransactionDTO();
+                   transactionDTO.setId(Integer.parseInt(selectedCellValue));
                    ComentaryServiceImpl commentaryService = new ComentaryServiceImpl();
                    UtilMenu util = new UtilMenu();
                    List<CommentDTO> listComments = commentaryService.getListComments(Integer.parseInt(selectedCellValue));
                    
                    if( listComments.isEmpty() ){
                         JOptionPane.showMessageDialog(null,"La operación no tiene relacionado ningún comentario");
-                         jPanel5.setVisible(false);
+                        int result = JOptionPane.showConfirmDialog(null, "Deseas agregar un comentario a esta transaccion?");
+                        if(result == 0){
+                         util.loadTableComments(listComments, jTable4); 
+                         jPanel5.setVisible(true);   
+                        }else{
+                            jPanel5.setVisible(false);
+                        }
+                        
+                         
                    }else{
                          util.loadTableComments(listComments, jTable4);    
                          jPanel5.setVisible(true);
@@ -194,6 +206,11 @@ public class menu extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        jButton4 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -508,21 +525,64 @@ public class menu extends javax.swing.JFrame {
         ));
         jScrollPane6.setViewportView(jTable4);
 
+        jLabel10.setText("Agregar comentarios");
+
+        jLabel11.setText("Comentario:");
+
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane7.setViewportView(jTextArea2);
+
+        jButton4.setText("Registrar Comentario");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane6)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(36, 36, 36)
+                                .addComponent(jLabel11)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane6)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(232, 232, 232)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(425, 425, 425)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 10, Short.MAX_VALUE)
+                        .addComponent(jLabel11)
+                        .addGap(2, 2, 2)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)
+                        .addGap(5, 5, 5)))
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jLabel5.setText("Agregar Pago");
@@ -837,6 +897,18 @@ public class menu extends javax.swing.JFrame {
                     
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       String message = jTextArea2.getText();
+        ComentaryServiceImpl comentaryService = new ComentaryServiceImpl();
+        comentaryService.createComentary(message, transactionDTO.getId());
+        
+        UtilMenu util = new UtilMenu();
+                 
+                   util.loadTableComments(comentaryService.getListComments(transactionDTO.getId()), jTable4);
+                   
+                   jTextArea2.setText("");
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     private void hideFormularyTransaction(){
         jLabelMsi.setVisible(false);
         jComboBoxMsi.setVisible(false);
@@ -933,11 +1005,14 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBoxMsi;
     private javax.swing.JComboBox<String> jComboBoxNoTarjeta;
     private javax.swing.JComboBox<String> jComboBoxUsuario;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -970,11 +1045,13 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextAreaComentarios;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
