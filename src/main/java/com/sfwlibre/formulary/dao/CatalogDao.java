@@ -17,10 +17,11 @@ public interface CatalogDao {
     
     public List<CatalogDTO> listCatalogUsers(int user_id);
     
-    
     public List<CatalogDTO> listCatalogCards();
     
     public int getCardsByDescription(String description);
+    
+    public List<CatalogDTO> listCatalogCards(String typeCard);
     
     public int getMsiByDescription(String description);
     

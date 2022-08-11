@@ -40,5 +40,10 @@ public class CatalogServiceImpl implements CatalogService{
     public int getMsiByDescription(String description) {
         return catalogDao.getMsiByDescription(description);
     }
+
+    @Override
+    public List<CatalogDTO> listCatalogCards(String typeCard) {
+        return catalogDao.listCatalogCards(typeCard);
+    }
     
 }

@@ -86,15 +86,18 @@ public class menu extends javax.swing.JFrame {
                        
                        if(result == 0){
                            jPanel6.setVisible(true);
+                         
                        }else{
+                         
                            jPanel6.setVisible(false);
                        }
                        
                    }else{
+                      
                        util.loadTablePayments(listPayments, jTable3); 
                        jPanel6.setVisible(true);
                    }
-                   
+                    jPanel5.setVisible(false);
                  
                    
             }
@@ -121,21 +124,24 @@ public class menu extends javax.swing.JFrame {
                    ComentaryServiceImpl commentaryService = new ComentaryServiceImpl();
                    UtilMenu util = new UtilMenu();
                    List<CommentDTO> listComments = commentaryService.getListComments(Integer.parseInt(selectedCellValue));
-                   
+                   jPanel6.setVisible(false);
                    if( listComments.isEmpty() ){
                         JOptionPane.showMessageDialog(null,"La operación no tiene relacionado ningún comentario");
                         int result = JOptionPane.showConfirmDialog(null, "Deseas agregar un comentario a esta transaccion?");
                         if(result == 0){
                          util.loadTableComments(listComments, jTable4); 
                          jPanel5.setVisible(true);   
+                         
                         }else{
                             jPanel5.setVisible(false);
+                          
                         }
                         
                          
                    }else{
                          util.loadTableComments(listComments, jTable4);    
                          jPanel5.setVisible(true);
+                         
                    }
                    
                    
@@ -220,7 +226,6 @@ public class menu extends javax.swing.JFrame {
         jTable3 = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
 
         jTextArea1.setColumns(20);
@@ -384,12 +389,6 @@ public class menu extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(171, 171, 171)
-                .addComponent(jLabelMsi)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBoxMsi, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(127, 127, 127)
@@ -411,7 +410,6 @@ public class menu extends javax.swing.JFrame {
                                     .addComponent(jLabelConcepto))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxNoTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextFieldConcepto, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabelUsuario)
@@ -422,24 +420,32 @@ public class menu extends javax.swing.JFrame {
                                 .addComponent(jLabelComentarios))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                    .addGap(388, 388, 388)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                            .addComponent(jLabelMonto)
+                                            .addGap(31, 31, 31)
+                                            .addComponent(jTextFieldMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                            .addComponent(jLabelPersonal)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jRadioButtonPersonal1)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jRadioButtonPersonal2)
+                                            .addGap(368, 368, 368))))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addGap(171, 171, 171)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jComboBoxNoTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 708, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                            .addComponent(jLabelMsi)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jComboBoxMsi, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(388, 388, 388)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabelMonto)
-                        .addGap(31, 31, 31)
-                        .addComponent(jTextFieldMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabelPersonal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButtonPersonal1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButtonPersonal2)
-                        .addGap(368, 368, 368)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -454,7 +460,7 @@ public class menu extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxMsi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelMsi))
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNoTarjeta)
                     .addComponent(jComboBoxNoTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -659,14 +665,6 @@ public class menu extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Listar Usuarios");
-        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu2MouseClicked(evt);
-            }
-        });
-        jMenuBar1.add(jMenu2);
-
         jMenu3.setText("Registrar transacciones");
         jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -756,18 +754,6 @@ public class menu extends javax.swing.JFrame {
         jPanel6.setVisible(false);
     }//GEN-LAST:event_jMenu1MouseClicked
 
-    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-        jPanel1.setVisible(false);
-        
-        jPanel3.setVisible(false);
-        jPanel4.setVisible(false);
-        jPanel5.setVisible(false);
-        jPanel6.setVisible(false);
-        UtilMenu util = new UtilMenu();
-        UsuarioServiceImpl usuarioService = new UsuarioServiceImpl();
-        util.loadTableUser(usuarioService.listUser(), jTable1);
-    }//GEN-LAST:event_jMenu2MouseClicked
-
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
         jPanel1.setVisible(false);
         
@@ -806,14 +792,22 @@ public class menu extends javax.swing.JFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         
+        CatalogServiceImpl catalogService = new CatalogServiceImpl();
+        UtilMenu util = new UtilMenu();
+        final String CREDICT_CARD = "credit";
+        final String DEBIT_CARD = "debit";
         switch (jComboBox1.getSelectedIndex()) {
             case 0:
                    hideFormularyTransaction();
+                   
                 break;
             case 1:
+                util.loadCombo(catalogService.listCatalogCards(DEBIT_CARD), jComboBoxNoTarjeta);
                 showFormularyTransactionOneExibition();
+                
                 break;    
             case 2:
+                util.loadCombo(catalogService.listCatalogCards(CREDICT_CARD), jComboBoxNoTarjeta);
                 showFormularyTransactionMsi();
                 break;
             default:
@@ -1029,7 +1023,6 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelPersonal;
     private javax.swing.JLabel jLabelUsuario;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
