@@ -43,5 +43,10 @@ public class TransactionServiceImpl implements TransactionService{
     public List<PaymentDTO> getListTransactionPayment(int transactionId) {
         return transactionDao.getListTransactionPayment(transactionId);
     }
+
+    @Override
+    public void updateTransactionPaymentToPayed(PaymentDomain payment) {
+        transactionDao.updateTransactionPaymentToPayed(payment);
+    }
     
 }

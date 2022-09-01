@@ -169,6 +169,31 @@ public class TransactionDaoImpl extends ConnectionMysql implements TransactionDa
             return null;
         }
     }
+
+    @Override
+    public void updateTransactionPaymentToPayed(PaymentDomain payment) {
+        Connection con = getConnectionDB();
+         String SQL_Query = "UPDATE sgc_t007_breakdown SET isPayed = ?, date_payout = ? WHERE breakdown_id = ?;";
+         
+        try {
+                PreparedStatement preparedStmt = con.prepareStatement(SQL_Query);
+                java.util.Date date=new java.util.Date();
+                java.sql.Date sqlDate=new java.sql.Date(date.getTime());
+                java.sql.Timestamp sqlTime=new java.sql.Timestamp(date.getTime());
+                
+                preparedStmt.setBoolean(1, true);
+                preparedStmt.setTimestamp(2, sqlTime);
+                preparedStmt.setInt( 3, payment.getBreakDownId() );
+                
+   
+                preparedStmt.executeUpdate();
+              
+                con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+          
+        }
+    }
     
     
 

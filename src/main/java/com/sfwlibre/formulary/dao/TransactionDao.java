@@ -23,5 +23,7 @@ interface TransactionDao {
     
     public void inserTransactionPayment(PaymentDomain payment);
     
+    public void updateTransactionPaymentToPayed(PaymentDomain payment);
+    
     public List<PaymentDTO> getListTransactionPayment(int transactionId);
 }

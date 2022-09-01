@@ -38,10 +38,13 @@ public class menu extends javax.swing.JFrame {
     public PaymentDTO paymentDTO;
     public TransactionDTO transactionDTO;
      final JPopupMenu popupMenu = new JPopupMenu();
+     final JPopupMenu popupMenuPagos = new JPopupMenu();
      JMenuItem showStatusPayments = new JMenuItem("Mostrar pagos realizados");
      JMenuItem agregarAbono = new JMenuItem("Agregar Abono");
      JMenuItem pagoCompletado = new JMenuItem("Completar Pago");
      JMenuItem showCommments = new JMenuItem("Mostrar comentarios");
+     
+     JMenuItem markPaymentLikePayed = new JMenuItem("Marcar como pagado.");
      
     public menu(UserDTO user) {
         initComponents();
@@ -153,6 +156,33 @@ public class menu extends javax.swing.JFrame {
          popupMenu.add(pagoCompletado);
          popupMenu.add(showCommments);
         jTable2.setComponentPopupMenu(popupMenu);
+        
+        
+        markPaymentLikePayed.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                   String selectedCellValue = (String) jTable3.getValueAt(jTable3.getSelectedRow() , jTable3.getSelectedColumn());
+                   System.out.println(selectedCellValue);
+                   TransactionServiceImpl transaccionService = new TransactionServiceImpl();
+                   PaymentDomain paymentDomain = new PaymentDomain();
+                   
+                   paymentDomain.setBreakDownId(Integer.parseInt(selectedCellValue));
+                   paymentDomain.setIsPayed(true);
+                   transaccionService.updateTransactionPaymentToPayed(paymentDomain);
+                   
+                   JOptionPane.showMessageDialog(null, "El pago se ha actualizado");
+                   UtilMenu util = new UtilMenu();
+                  
+                   List<PaymentDTO> listPayments = transaccionService.getListTransactionPayment(paymentDTO.getId());
+                   util.loadTablePayments(listPayments, jTable3);
+                   
+                   
+                   
+            }
+        });
+        
+        popupMenuPagos.add(markPaymentLikePayed);
+        jTable3.setComponentPopupMenu( popupMenuPagos);
         
      
     }

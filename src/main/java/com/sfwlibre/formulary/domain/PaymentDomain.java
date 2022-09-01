@@ -12,11 +12,13 @@ import java.util.Date;
  */
 public class PaymentDomain {
     
+    
     private double amount;
     private boolean isPayed;
     private Date dateRegister;
     private Date datePayout;
     private int transactionId;
+    private int breakDownId;
 
     public double getAmount() {
         return amount;
@@ -58,10 +60,16 @@ public class PaymentDomain {
         this.transactionId = transactionId;
     }
 
+    public int getBreakDownId() {
+        return breakDownId;
+    }
+
+    public void setBreakDownId(int breakDownId) {
+        this.breakDownId = breakDownId;
+    }
+
     @Override
     public String toString() {
-        return "PaymentDomain{" + "amount=" + amount + ", isPayed=" + isPayed + ", dateRegister=" + dateRegister + ", datePayout=" + datePayout + ", transactionId=" + transactionId + '}';
-    }
-    
-    
+        return "PaymentDomain{" + "amount=" + amount + ", isPayed=" + isPayed + ", dateRegister=" + dateRegister + ", datePayout=" + datePayout + ", transactionId=" + transactionId + ", breakDownId=" + breakDownId + '}';
+    }    
 }

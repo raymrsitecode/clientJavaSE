@@ -21,4 +21,5 @@ public interface TransactionService {
      public List<TransactionDTO> getListTransaction();
      public void inserTransactionPayment(PaymentDomain payment);
      public List<PaymentDTO> getListTransactionPayment(int transactionId);
+     public void updateTransactionPaymentToPayed(PaymentDomain payment);
 }

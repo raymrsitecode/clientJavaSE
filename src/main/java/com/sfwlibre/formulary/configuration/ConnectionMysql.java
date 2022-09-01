@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,9 +35,10 @@ public Connection getConnectionDB(){
     Properties props = getConnectionData();
           try{  
                Class.forName("com.mysql.cj.jdbc.Driver");  
-               Connection con = DriverManager.getConnection(props.getProperty("db.url"),props.getProperty("db.user"),"");  
+               Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sgcpagos","root","");  
                  return con;
               }catch(Exception e){ 
+                       JOptionPane.showMessageDialog(null, "No se pudo conectar a la bbdd"+ e);
                                    return null;
              }  
 }
