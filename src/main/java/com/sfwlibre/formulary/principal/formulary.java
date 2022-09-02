@@ -86,10 +86,25 @@ public class Formulary extends javax.swing.JFrame {
         jTextField1.setForeground(new java.awt.Color(204, 204, 204));
         jTextField1.setText("Ingrese su nombre de usuario");
         jTextField1.setBorder(null);
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField1FocusGained(evt);
+            }
+        });
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField1MouseClicked(evt);
+            }
+        });
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, 430, 40));
 
         jPasswordField1.setText("jPasswordField1");
         jPasswordField1.setBorder(null);
+        jPasswordField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPasswordField1MouseClicked(evt);
+            }
+        });
         jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 480, 450, 40));
 
         jButton1.setBackground(new java.awt.Color(0, 102, 204));
@@ -236,6 +251,18 @@ public class Formulary extends javax.swing.JFrame {
     private void jPanel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseExited
         jLabel8.setBackground(Color.WHITE);
     }//GEN-LAST:event_jPanel3MouseExited
+
+    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
+       
+    }//GEN-LAST:event_jTextField1FocusGained
+
+    private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
+       jTextField1.setText("");
+    }//GEN-LAST:event_jTextField1MouseClicked
+
+    private void jPasswordField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPasswordField1MouseClicked
+        jPasswordField1.setText("");
+    }//GEN-LAST:event_jPasswordField1MouseClicked
 
     /**
      * @param args the command line arguments
